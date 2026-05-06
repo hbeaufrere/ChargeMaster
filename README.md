@@ -1,72 +1,106 @@
 # CEAMS Chargemaster &amp; Estimate Builder
 
-A single-page web app for browsing the CEAMS / CAPE chargemaster by section, building
-quick patient estimates, and editing charge codes.
+A single-page web app for browsing the CEAMS / CAPE chargemaster by section,
+building quick patient estimates, and editing charge codes.
 
-## What's here
+## Files
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | The whole app (UI + logic). Open it in any modern browser. |
-| `data.js` | The seed chargemaster data (codes, prices, descriptions). |
-| `Charge master 2026.pdf` | Source document the seed was built from. |
+| `index.html` | The whole app (UI + logic). |
+| `data.js` | The chargemaster data (codes, prices, descriptions). |
+| `Charge master 2026.pdf` | Source document. |
 
-## How to use it
+## Run / host
 
-### 1. Run locally
-Open `index.html` directly in a browser, or serve the folder:
-
-```
-python3 -m http.server 8080
-# then visit http://localhost:8080
-```
-
-### 2. Host online (free)
-Push the repo to GitHub and enable **Settings → Pages → Source: main / root**.
-Your app will be at `https://<user>.github.io/<repo>/`.
+- **Local:** open `index.html` in a browser.
+- **Online:** push to GitHub and enable **Settings → Pages → Source: main / root**.
+  App lives at `https://<user>.github.io/<repo>/`.
 
 ## Tabs
 
-- **Browse** — every charge grouped by section, filterable by section and free-text
-  search. Click `+ Estimate` on any row to add it to the current estimate.
-- **Quick Estimate** — two ways to add charges:
-  1. **Type** a code or service name and pick from the autocomplete list.
-  2. **Pick from list** — open the picker, multi-select rows, then `Add selected to
-     estimate`.
+- **Browse** — every charge grouped by section, free-text search, optional toggle
+  for the 14 proposed-discontinued codes. Click `+ Estimate` on any row to add it;
+  rows already in the estimate are **highlighted yellow** until you remove them
+  or click *Reset*.
+- **Quick Estimate** — add charges by typing (autocomplete) or by multi-selecting
+  in the picker. Edit quantities, remove lines, *Reset* to clear, *Copy as text*
+  to dump a plain-text version.
+- **Manage** — add new codes, edit existing ones, delete, mark discontinued.
+  Export/import JSON for offline backups, or set up GitHub auto-sync (below).
 
-  Edit quantities inline, click `✕` to remove a line, `Reset` to clear everything,
-  or `Copy as text` to grab a plain-text version.
-- **Manage** — add new codes, edit existing ones (price, name, unit, description,
-  section), mark as discontinued, or delete. **Export JSON** downloads your edits;
-  **Import JSON** restores from a file. **Reset to defaults** restores the
-  original 2026 data.
+## Password protection
 
-## How edits are saved
+On first launch the app asks you to set a password. After that, every open
+requires entering it.
 
-Edits live in `localStorage` in the browser you're using. To share new prices
-with everyone:
+What the password actually does:
 
-1. Make your edits in the Manage tab.
-2. Click **Export JSON** — you'll get a `chargemaster-<version>.json` file.
-3. Either:
-   - send the JSON to colleagues to **Import JSON** in their browser, or
-   - replace `data.js`'s seed with the new values and commit it to the repo so
-     the new defaults ship to all users.
+- ✅ Locks the app's UI behind a password screen.
+- ✅ Encrypts your GitHub access token (AES-GCM, key derived from your password
+  via PBKDF2). Without the password the stored token can't be decrypted.
+- ❌ Does **not** hide the published `data.js` file. Anyone with the GitHub
+  Pages URL can fetch it directly. If you need real protection of the data,
+  use a private repo + a host that supports auth (Cloudflare Access,
+  Netlify Identity, etc.).
 
-## Updating the seed
+The password is stored only on this device — re-setting up on a second device
+means choosing a new password there. Click *Forget password* on the unlock
+screen to wipe local auth data and start over.
 
-The seed lives in `data.js` as `window.CHARGEMASTER_SEED`. Each item is:
+## GitHub auto-sync
+
+Edits made in the **Manage** tab (add / edit / delete / discontinue) can
+auto-commit to GitHub so everyone sees the same chargemaster.
+
+### One-time setup
+
+1. Open the **Manage** tab → **Set up GitHub auto-sync**.
+2. Create a fine-grained personal access token:
+   - github.com → Settings → Developer settings → Personal access tokens →
+     Fine-grained tokens → **Generate new token**.
+   - Resource owner: your account.
+   - Repository access: *Only select repositories* → pick this repo.
+   - Repository permissions → **Contents: Read and write**.
+   - Generate. Copy the token (starts with `github_pat_…`).
+3. Paste owner / repo / branch / file path / token into the dialog and click
+   **Test &amp; save**. The token is encrypted with your password before being
+   stored locally.
+
+### What happens after setup
+
+- Every add / edit / delete in the Manage tab schedules a debounced commit
+  (1.5s after the last change) that overwrites `data.js` on the configured
+  branch with a freshly serialized version of the chargemaster.
+- A small status pill in the header shows sync state: *Pending changes…*,
+  *Saving…*, *Synced HH:MM:SS*, or *Sync error*.
+- GitHub Pages rebuilds the site within ~1 minute, so other users see the new
+  prices on their next page load (after the CDN cache flushes).
+
+### Disconnecting
+
+In Manage → **Disconnect** removes the token + config from this device.
+The published chargemaster on GitHub is unchanged.
+
+## Data shape (`data.js`)
 
 ```js
-{
-  code: "1512",
-  section: "Examinations",
-  service: "Emergency Exam",
-  unit: "per appt",
-  price: 360,
-  description: "Walk in or same day scheduled ER",
-  discontinued: false  // optional; omit or set false for active codes
-}
+window.CHARGEMASTER_SEED = {
+  version: "2026.1",
+  sections: ["Examinations", "Field Service", ...],
+  items: [
+    {
+      code: "1512",
+      section: "Examinations",
+      service: "Emergency Exam",
+      unit: "per appt",
+      price: 360,
+      description: "Walk in or same day scheduled ER"
+    },
+    // discontinued codes have `discontinued: true`
+  ]
+};
 ```
 
-Bump `version` whenever you edit the seed so users know to reset/import.
+The auto-sync writes this format with one item per line for clean diffs.
+Bump `version` when you ship a notable change so the header meta reflects it.
