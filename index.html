@@ -351,6 +351,9 @@
   .multi-toolbar .count { font-weight: 600; color: var(--section); }
 
   .qty-input { width: 64px; text-align: right; padding: 4px 6px; }
+  .row-qty { display: inline-flex; align-items: center; gap: 4px; }
+  .qty-x { color: var(--muted); font-weight: 600; font-size: 14px; }
+  .row-qty .qty-input { width: 56px; }
 
   .modal-bg {
     position: fixed;
@@ -488,35 +491,56 @@
   .sync-status.off { display: none; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-  .sync-card {
-    background: #f7faff;
-    border: 1px solid #cfe2f3;
+  /* Save banner + button on Manage tab */
+  .save-banner {
     border-radius: 8px;
-    padding: 14px;
-    margin-bottom: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .sync-card .info { font-size: 13px; }
-  .sync-card .info b { color: var(--section); }
-  .sync-card .info .small { color: var(--muted); font-size: 12px; }
-
-  .sync-instructions {
-    background: #fffaeb;
-    border: 1px solid #f4c87a;
-    border-radius: 6px;
     padding: 10px 14px;
-    font-size: 12px;
+    font-size: 13px;
+    margin-bottom: 14px;
+    border: 1px solid;
+  }
+  .save-banner.saved {
+    background: #e8f6ec;
+    border-color: #a8d9b4;
+    color: #1e6b3b;
+  }
+  .save-banner.unsaved {
+    background: #fff7e0;
+    border-color: var(--gold-dark);
+    color: #6b4d1a;
+    font-weight: 600;
+  }
+  .save-banner.saving {
+    background: #fff7e0;
+    border-color: var(--gold-dark);
     color: #6b4d1a;
   }
-  .sync-instructions code {
-    background: rgba(0,0,0,0.05);
-    padding: 1px 4px;
-    border-radius: 3px;
-    font-size: 11px;
+  .save-banner.error {
+    background: #fdecec;
+    border-color: var(--danger);
+    color: var(--danger);
+    font-weight: 600;
+  }
+
+  button.save-btn {
+    background: var(--gold);
+    border-color: var(--gold-dark);
+    color: var(--aggie-blue);
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+  button.save-btn:hover:not(:disabled) {
+    background: var(--gold-dark);
+    border-color: var(--gold-dark);
+    color: #fff;
+  }
+  button.save-btn:disabled {
+    background: #f0f2f4;
+    border-color: var(--border-strong);
+    color: var(--muted);
+    font-weight: 500;
   }
 
   @media print {
@@ -699,25 +723,16 @@
   <!-- MANAGE TAB -->
   <section id="tab-manage" class="tab" style="display:none">
 
-    <div class="sync-card" id="sync-card">
-      <div class="info" id="sync-info">Loading…</div>
-      <div class="toolbar">
-        <button class="primary" id="sync-setup-btn">Set up GitHub auto-sync</button>
-        <button id="sync-now-btn" style="display:none">Sync now</button>
-        <button class="danger" id="sync-disconnect-btn" style="display:none">Disconnect</button>
-      </div>
-    </div>
-
     <div class="panel">
-      <div class="row" style="justify-content:space-between; margin-bottom:12px">
+      <div class="row" style="justify-content:space-between; align-items:center; margin-bottom:12px">
         <h2 style="margin:0">Manage charges</h2>
         <div class="toolbar">
           <button class="primary" id="mgr-add">+ Add new code</button>
-          <button id="mgr-export">Export JSON</button>
-          <button id="mgr-import">Import JSON</button>
-          <input type="file" id="mgr-import-file" accept="application/json,.json" style="display:none" />
-          <button class="danger" id="mgr-reset">Reset to defaults</button>
+          <button class="save-btn" id="save-cm-btn" disabled>SAVE TO CHARGEMASTER</button>
         </div>
+      </div>
+      <div id="save-banner" class="save-banner saved">
+        <span id="save-banner-text">All changes saved.</span>
       </div>
       <div class="browse-controls">
         <input type="search" id="mgr-search" placeholder="Search…" autocomplete="off" />
@@ -787,53 +802,6 @@
   </div>
 </div>
 
-<!-- ============================================================== -->
-<!-- SYNC SETUP MODAL                                               -->
-<!-- ============================================================== -->
-<div class="modal-bg" id="sync-modal-bg">
-  <div class="modal">
-    <h3>Set up GitHub auto-sync</h3>
-
-    <div class="sync-instructions">
-      <b>How to get a token:</b>
-      <ol>
-        <li>Go to <code>github.com → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</code>.</li>
-        <li>Name it (e.g. "Chargemaster app"). Resource owner = your account. Repository access = "Only select repositories" → pick this repo.</li>
-        <li>Under <b>Repository permissions</b>, set <b>Contents: Read and write</b>.</li>
-        <li>Generate, copy the token (starts with <code>github_pat_…</code>), and paste below.</li>
-      </ol>
-    </div>
-
-    <div class="form-grid" style="margin-top:14px">
-      <label>Owner
-        <input type="text" id="sync-owner" placeholder="hbeaufrere" />
-      </label>
-      <label>Repo
-        <input type="text" id="sync-repo" placeholder="ChargeMaster" />
-      </label>
-      <label>Branch
-        <input type="text" id="sync-branch" placeholder="main" />
-      </label>
-      <label>File path
-        <input type="text" id="sync-path" placeholder="data.js" />
-      </label>
-      <label class="full">Personal access token
-        <input type="password" id="sync-pat" autocomplete="off" placeholder="github_pat_…" />
-      </label>
-      <label class="full">Commit message (optional)
-        <input type="text" id="sync-msg" placeholder="Update chargemaster from web app" />
-      </label>
-    </div>
-
-    <div class="auth-error" id="sync-err" style="display:none"></div>
-
-    <div class="row" style="justify-content:flex-end; margin-top: 16px;">
-      <button id="sync-cancel">Cancel</button>
-      <button class="primary" id="sync-save">Test &amp; save</button>
-    </div>
-  </div>
-</div>
-
 <script src="data.js"></script>
 <script>
 (function(){
@@ -844,6 +812,7 @@
   // ============================================================
   const STORAGE_KEY        = "chargemaster_v1";
   const ESTIMATE_KEY       = "chargemaster_estimate_v1";
+  const PENDING_FLAG_KEY   = "cm_pending_changes";
   const PAT_ENC_KEY        = "cm_pat_encrypted";
   const SYNC_CONFIG_KEY    = "cm_sync_config";
   const VERIFIER_PT        = "OK-CHARGEMASTER";
@@ -1051,7 +1020,6 @@
     return lines.join("\n") + "\n";
   }
 
-  let syncTimer = null;
   let syncing = false;
 
   function setSyncStatus(text, kind) {
@@ -1063,11 +1031,13 @@
     el.querySelector(".text").textContent = text;
   }
 
-  function scheduleSync() {
-    if (!isSyncConfigured()) return;
-    setSyncStatus("Pending changes…", "busy");
-    if (syncTimer) clearTimeout(syncTimer);
-    syncTimer = setTimeout(() => { syncTimer = null; syncNow(); }, 1500);
+  function hasPendingChanges() {
+    return localStorage.getItem(PENDING_FLAG_KEY) === "1";
+  }
+  function setPending(yes) {
+    if (yes) localStorage.setItem(PENDING_FLAG_KEY, "1");
+    else localStorage.removeItem(PENDING_FLAG_KEY);
+    renderSaveBanner();
   }
 
   async function ghContentsGet(cfg) {
@@ -1081,10 +1051,15 @@
     return resp;
   }
 
-  async function syncNow() {
-    if (!isSyncConfigured() || syncing) return;
+  async function saveToChargemaster() {
+    if (!isSyncConfigured()) {
+      alert("GitHub auto-save is not configured. Please contact whoever set up this app.");
+      return;
+    }
+    if (syncing) return;
     syncing = true;
-    setSyncStatus("Saving to GitHub…", "busy");
+    setSaveBannerState("saving");
+    setSyncStatus("Saving…", "busy");
     try {
       const cfg = getSyncConfig();
 
@@ -1098,7 +1073,7 @@
         sha = null;
       } else {
         const j = await getResp.json().catch(() => ({}));
-        throw new Error(`GitHub GET ${getResp.status}: ${j.message || ""}`.trim());
+        throw new Error(`GitHub error ${getResp.status}: ${j.message || ""}`.trim());
       }
 
       // 2) PUT new content
@@ -1120,122 +1095,56 @@
         },
         body: JSON.stringify(body)
       });
+      if (putResp.status === 409) {
+        throw new Error("Someone else just saved an update. Please refresh the page to load the latest, then redo your changes.");
+      }
       if (!putResp.ok) {
         const j = await putResp.json().catch(() => ({}));
-        throw new Error(`GitHub PUT ${putResp.status}: ${j.message || ""}`.trim());
+        throw new Error(`GitHub error ${putResp.status}: ${j.message || ""}`.trim());
       }
+      // Success — clear the pending flag and the local cache so the next page load uses the fresh seed
+      localStorage.removeItem(STORAGE_KEY);
+      setPending(false);
       const ts = new Date();
-      setSyncStatus(`Synced ${ts.toLocaleTimeString()}`, "ok");
-      renderSyncCard();
+      setSaveBannerState("saved", `All changes saved at ${ts.toLocaleTimeString()}.`);
+      setSyncStatus(`Saved ${ts.toLocaleTimeString()}`, "ok");
     } catch (err) {
-      setSyncStatus("Sync error", "err");
       console.error(err);
-      const el = document.getElementById("sync-info");
-      if (el) el.innerHTML = `<b>Sync failed</b><div class="small">${escapeHtml(err.message)}</div>`;
+      setSaveBannerState("error", err.message);
+      setSyncStatus("Save error", "err");
     } finally {
       syncing = false;
     }
   }
 
-  // ============================================================
-  // SYNC SETUP UI
-  // ============================================================
-  function openSyncModal() {
-    document.getElementById("sync-err").style.display = "none";
-    const cfg = getSyncConfig() || {};
-    document.getElementById("sync-owner").value = cfg.owner || "hbeaufrere";
-    document.getElementById("sync-repo").value = cfg.repo || "ChargeMaster";
-    document.getElementById("sync-branch").value = cfg.branch || "main";
-    document.getElementById("sync-path").value = cfg.path || "data.js";
-    document.getElementById("sync-msg").value = cfg.message || "";
-    document.getElementById("sync-pat").value = "";
-    document.getElementById("sync-modal-bg").classList.add("open");
-    document.getElementById("sync-pat").focus();
-  }
-  function closeSyncModal() {
-    document.getElementById("sync-modal-bg").classList.remove("open");
-  }
-  async function saveSyncConfigFromUI() {
-    const errEl = document.getElementById("sync-err");
-    errEl.style.display = "none";
-    const cfg = {
-      owner: document.getElementById("sync-owner").value.trim(),
-      repo: document.getElementById("sync-repo").value.trim(),
-      branch: document.getElementById("sync-branch").value.trim() || "main",
-      path: document.getElementById("sync-path").value.trim() || "data.js",
-      message: document.getElementById("sync-msg").value.trim()
-    };
-    const pat = document.getElementById("sync-pat").value.trim();
-    if (!cfg.owner || !cfg.repo || !pat) {
-      errEl.textContent = "Owner, repo, and token are required.";
-      errEl.style.display = "";
-      return;
-    }
-    try {
-      // Test the token by fetching the file (or 404, which is fine)
-      currentPat = pat;
-      const url = `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}/contents/${encodeURI(cfg.path)}?ref=${encodeURIComponent(cfg.branch)}`;
-      const resp = await fetch(url, {
-        headers: { "Authorization": "token " + pat, "Accept": "application/vnd.github+json" }
-      });
-      if (!resp.ok && resp.status !== 404) {
-        const j = await resp.json().catch(() => ({}));
-        throw new Error(`Test failed (${resp.status}): ${j.message || "check token / repo / branch"}`);
-      }
-      // Encrypt and store
-      const enc = await encryptStr(authKey, pat);
-      localStorage.setItem(PAT_ENC_KEY, enc);
-      localStorage.setItem(SYNC_CONFIG_KEY, JSON.stringify(cfg));
-      closeSyncModal();
-      renderSyncCard();
-      // First sync to push current state
-      scheduleSync();
-    } catch (err) {
-      currentPat = null;
-      errEl.textContent = err.message;
-      errEl.style.display = "";
-    }
-  }
-  async function disconnectSync() {
-    if (!confirm("Clear your local sync override? You'll fall back to the shared sync config from auth.json (if present).")) return;
-    localStorage.removeItem(SYNC_CONFIG_KEY);
-    localStorage.removeItem(PAT_ENC_KEY);
-    // Fall back to shared PAT
-    if (authKey && sharedAuth && sharedAuth.patEnc) {
-      try { currentPat = await decryptStr(authKey, sharedAuth.patEnc); }
-      catch (_) { currentPat = null; }
+  function renderSaveBanner() {
+    const banner = document.getElementById("save-banner");
+    const btn = document.getElementById("save-cm-btn");
+    if (!banner || !btn) return;
+    if (hasPendingChanges()) {
+      setSaveBannerState("unsaved");
+      btn.disabled = false;
     } else {
-      currentPat = null;
+      // Only set to "saved" if not already showing a more specific message
+      if (!banner.classList.contains("saved")) setSaveBannerState("saved");
+      btn.disabled = true;
     }
-    renderSyncCard();
   }
 
-  function renderSyncCard() {
-    const cfg = getSyncConfig();
-    const info = document.getElementById("sync-info");
-    const setupBtn = document.getElementById("sync-setup-btn");
-    const nowBtn = document.getElementById("sync-now-btn");
-    const discBtn = document.getElementById("sync-disconnect-btn");
-    if (cfg && currentPat) {
-      const source = isLocalSyncOverride() ? "local override" : "shared via auth.json";
-      info.innerHTML = `<b>GitHub auto-sync: on</b>
-        <div class="small">${escapeHtml(cfg.owner)}/${escapeHtml(cfg.repo)} · branch <code>${escapeHtml(cfg.branch)}</code> · <code>${escapeHtml(cfg.path)}</code> · <i>${source}</i></div>`;
-      setupBtn.textContent = isLocalSyncOverride() ? "Edit local override" : "Override locally";
-      setupBtn.style.display = "";
-      nowBtn.style.display = "";
-      discBtn.style.display = isLocalSyncOverride() ? "" : "none";
-      discBtn.textContent = "Clear local override";
-      setSyncStatus("Connected", "ok");
-    } else {
-      info.innerHTML = `<b>GitHub auto-sync: off</b>
-        <div class="small">No token available. Set up auto-sync to push changes to the repo.</div>`;
-      setupBtn.textContent = "Set up GitHub auto-sync";
-      setupBtn.style.display = "";
-      nowBtn.style.display = "none";
-      discBtn.style.display = "none";
-      setSyncStatus("", null);
-    }
+  function setSaveBannerState(state, customText) {
+    const banner = document.getElementById("save-banner");
+    const text = document.getElementById("save-banner-text");
+    if (!banner || !text) return;
+    banner.classList.remove("saved", "unsaved", "saving", "error");
+    banner.classList.add(state);
+    if (customText) { text.textContent = customText; return; }
+    if (state === "saved")    text.textContent = "All changes saved.";
+    if (state === "unsaved")  text.textContent = "You have unsaved changes — click SAVE TO CHARGEMASTER to publish them.";
+    if (state === "saving")   text.textContent = "Saving to GitHub…";
+    if (state === "error")    text.textContent = "Save failed.";
   }
+
+  // (Sync setup is fully driven by auth.json — no in-app UI for techs.)
 
   // ============================================================
   // APP DATA + LOGIC
@@ -1251,29 +1160,26 @@
   let editingCode = null;
 
   function loadChargemaster() {
-    // If sync is configured, prefer the freshly-loaded seed (data.js was just fetched).
-    // Otherwise fall back to localStorage cache.
-    if (getSyncConfig()) {
-      return JSON.parse(JSON.stringify(window.CHARGEMASTER_SEED));
+    // If we have unsaved local edits, use the localStorage cache.
+    // Otherwise always use the freshly-loaded seed from data.js.
+    if (hasPendingChanges()) {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && Array.isArray(parsed.items)) return parsed;
+        }
+      } catch (e) {}
     }
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed && Array.isArray(parsed.items)) return parsed;
-      }
-    } catch (e) {}
+    // Clean any stale cache from previous behavior
+    localStorage.removeItem(STORAGE_KEY);
     return JSON.parse(JSON.stringify(window.CHARGEMASTER_SEED));
   }
   function saveChargemaster() {
-    if (getSyncConfig()) {
-      // Don't pollute localStorage when synced; seed is source of truth.
-      localStorage.removeItem(STORAGE_KEY);
-    } else {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(cm));
-    }
+    // Persist the working draft and mark as having unsaved changes
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cm));
+    setPending(true);
     renderMeta();
-    scheduleSync();
   }
   function loadEstimate() {
     try {
@@ -1311,7 +1217,7 @@
         document.getElementById("tab-" + b.dataset.tab).style.display = "";
         if (b.dataset.tab === "browse") renderBrowse();
         if (b.dataset.tab === "estimate") renderEstimate();
-        if (b.dataset.tab === "manage") { renderSyncCard(); renderManage(); }
+        if (b.dataset.tab === "manage") { renderSaveBanner(); renderManage(); }
       });
     });
   }
@@ -1377,7 +1283,11 @@
           <td class="desc">${escapeHtml(it.description || "")}</td>
           <td class="actions">
             ${here
-              ? `<button class="tiny" data-remove="${escapeAttr(it.code)}" title="Remove from estimate">− Remove</button>`
+              ? `<span class="row-qty">
+                   <span class="qty-x">×</span>
+                   <input type="number" class="qty-input" min="0" step="any" value="${escapeAttr(currentQty(it.code))}" data-rowqty="${escapeAttr(it.code)}" title="Multiplier (decimals OK)" />
+                   <button class="tiny danger" data-remove="${escapeAttr(it.code)}" title="Remove from estimate">✕</button>
+                 </span>`
               : `<button class="tiny primary" data-add="${escapeAttr(it.code)}">+ Estimate</button>`
             }
           </td>
@@ -1385,22 +1295,47 @@
         tbody.appendChild(row);
       });
     });
-    // Whole-row click toggles add/remove (skip if user clicked an interactive child)
+    // Whole-row click adds (when not in estimate). Once in estimate, the qty input
+    // and remove button take over so accidental clicks don't drop the line.
     tbody.querySelectorAll("tr.clickable").forEach(row => {
       row.addEventListener("click", (e) => {
         if (e.target.closest("button, input, a")) return;
         const code = row.dataset.code;
         if (!code) return;
-        if (inEstimate(code)) removeFromEstimate(code);
-        else addToEstimate(code);
+        if (!inEstimate(code)) {
+          addToEstimate(code);
+          // After re-render, focus the new qty input so the tech can type the multiplier
+          setTimeout(() => {
+            const inp = document.querySelector(`#browse-tbody [data-rowqty="${CSS.escape(code)}"]`);
+            if (inp) { inp.focus(); inp.select(); }
+          }, 0);
+        }
       });
     });
     tbody.querySelectorAll("[data-add]").forEach(b => {
-      b.addEventListener("click", (e) => { e.stopPropagation(); addToEstimate(b.dataset.add); });
+      b.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const code = b.dataset.add;
+        addToEstimate(code);
+        setTimeout(() => {
+          const inp = document.querySelector(`#browse-tbody [data-rowqty="${CSS.escape(code)}"]`);
+          if (inp) { inp.focus(); inp.select(); }
+        }, 0);
+      });
     });
     tbody.querySelectorAll("[data-remove]").forEach(b => {
       b.addEventListener("click", (e) => { e.stopPropagation(); removeFromEstimate(b.dataset.remove); });
     });
+    tbody.querySelectorAll("[data-rowqty]").forEach(inp => {
+      inp.addEventListener("click", (e) => e.stopPropagation());
+      inp.addEventListener("change", () => setQty(inp.dataset.rowqty, inp.value));
+      inp.addEventListener("keydown", (e) => { if (e.key === "Enter") inp.blur(); });
+    });
+  }
+
+  function currentQty(code) {
+    const e = estimate.find(x => x.code === code);
+    return e ? e.qty : 1;
   }
 
   // ---- Estimate
@@ -1443,7 +1378,7 @@
           <td>${escapeHtml(it.service)}</td>
           <td>${escapeHtml(it.unit || "")}</td>
           <td class="price">${fmt(it.price)}</td>
-          <td class="qty"><input type="number" class="qty-input" min="0" step="1" value="${line.qty}" data-qty="${escapeAttr(it.code)}" /></td>
+          <td class="qty"><input type="number" class="qty-input" min="0" step="any" value="${line.qty}" data-qty="${escapeAttr(it.code)}" /></td>
           <td class="subtotal">${fmt(subtotal)}</td>
           <td class="actions"><button class="tiny danger" data-remove="${escapeAttr(it.code)}" title="Remove">✕</button></td>
         `;
@@ -1712,7 +1647,12 @@
     estimate = loadEstimate();
     renderMeta();
     renderBrowse();
-    renderSyncCard();
+    renderSaveBanner();
+    if (hasPendingChanges()) {
+      setSyncStatus("Unsaved changes", "busy");
+    } else if (currentPat) {
+      setSyncStatus("Saved", "ok");
+    }
     if (!booted) {
       // bind one-time event listeners
       bindTabs();
@@ -1779,42 +1719,6 @@
       document.getElementById("mgr-search").addEventListener("input", e => { mgrFilter.q = e.target.value; renderManage(); });
       document.getElementById("mgr-section-filter").addEventListener("change", e => { mgrFilter.section = e.target.value; renderManage(); });
       document.getElementById("mgr-add").addEventListener("click", () => openEditModal(null));
-      document.getElementById("mgr-reset").addEventListener("click", () => {
-        if (!confirm("Reset all charges to the original 2026 defaults? This will overwrite any local edits.")) return;
-        cm = JSON.parse(JSON.stringify(window.CHARGEMASTER_SEED));
-        saveChargemaster();
-        renderManage(); renderBrowse(); renderEstimate();
-      });
-      document.getElementById("mgr-export").addEventListener("click", () => {
-        const blob = new Blob([JSON.stringify(cm, null, 2)], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `chargemaster-${(cm.version || "edited").replace(/[^\w.-]/g, "_")}.json`;
-        document.body.appendChild(a); a.click(); a.remove();
-        URL.revokeObjectURL(url);
-      });
-      document.getElementById("mgr-import").addEventListener("click", () => document.getElementById("mgr-import-file").click());
-      document.getElementById("mgr-import-file").addEventListener("change", (e) => {
-        const f = e.target.files[0]; if (!f) return;
-        const r = new FileReader();
-        r.onload = () => {
-          try {
-            const parsed = JSON.parse(r.result);
-            if (!parsed || !Array.isArray(parsed.items)) throw new Error("Invalid file");
-            if (!confirm(`Import ${parsed.items.length} charges? This replaces current data.`)) return;
-            cm = parsed;
-            if (!Array.isArray(cm.sections) || !cm.sections.length) {
-              cm.sections = Array.from(new Set(cm.items.map(x => x.section)));
-            }
-            saveChargemaster();
-            renderManage(); renderBrowse(); renderEstimate();
-            alert("Imported.");
-          } catch (err) { alert("Could not parse JSON: " + err.message); }
-        };
-        r.readAsText(f);
-        e.target.value = "";
-      });
 
       // Edit modal
       document.getElementById("m-cancel").addEventListener("click", closeEditModal);
@@ -1823,16 +1727,8 @@
       });
       document.getElementById("m-save").addEventListener("click", saveEditFromModal);
 
-      // Sync card buttons
-      document.getElementById("sync-setup-btn").addEventListener("click", openSyncModal);
-      document.getElementById("sync-now-btn").addEventListener("click", syncNow);
-      document.getElementById("sync-disconnect-btn").addEventListener("click", disconnectSync);
-      // Sync modal
-      document.getElementById("sync-cancel").addEventListener("click", closeSyncModal);
-      document.getElementById("sync-modal-bg").addEventListener("click", (e) => {
-        if (e.target.id === "sync-modal-bg") closeSyncModal();
-      });
-      document.getElementById("sync-save").addEventListener("click", saveSyncConfigFromUI);
+      // Save button
+      document.getElementById("save-cm-btn").addEventListener("click", saveToChargemaster);
 
       // Header buttons
       document.getElementById("btn-print").addEventListener("click", () => window.print());
@@ -1840,8 +1736,6 @@
 
       booted = true;
     }
-    // If sync configured but the seed differs from any leftover localStorage, schedule a sync to push current.
-    // (saveChargemaster also wipes the cache when syncing.)
   }
 
   // ============================================================

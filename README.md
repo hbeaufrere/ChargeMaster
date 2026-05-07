@@ -23,13 +23,16 @@ building quick patient estimates, and editing charge codes.
 
 - **Browse** — every charge grouped by section, free-text search, optional toggle
   for the 14 proposed-discontinued codes. Click anywhere on a row to add it to
-  the estimate (or remove it if it's already there). Rows already in the
-  estimate are **highlighted yellow** until you remove them or click *Reset*.
+  the estimate (the row turns **yellow** and a multiplier field appears so you
+  can charge it 2×, 0.5×, etc. — decimals OK). Click ✕ on the row to remove it.
 - **Quick Estimate** — add charges by typing (autocomplete) or by multi-selecting
   in the picker. Edit quantities, remove lines, *Reset* to clear, *Copy as text*
   to dump a plain-text version.
 - **Manage** — add new codes, edit existing ones, delete, mark discontinued.
-  Export/import JSON for offline backups, or set up GitHub auto-sync (below).
+  Edits are draft until you click **SAVE TO CHARGEMASTER**, which publishes
+  them to GitHub for everyone. The banner shows whether you have unsaved
+  changes; the header pill shows the latest save state (Saved / Unsaved /
+  Saving / Save error).
 
 ## Password protection (shared)
 
@@ -80,39 +83,20 @@ const { webcrypto } = require("crypto");
 '
 ```
 
-## GitHub auto-sync
+## Saving to GitHub
 
-Edits made in the **Manage** tab (add / edit / delete / discontinue) can
-auto-commit to GitHub so everyone sees the same chargemaster.
+Editing a code (or adding/deleting) in the **Manage** tab updates the local
+draft. Click **SAVE TO CHARGEMASTER** to publish the draft to GitHub —
+this commits an updated `data.js` to the repo so everyone sees the new
+prices on their next page load.
 
-### One-time setup
+The setup that makes this work (the encrypted GitHub token + the target
+repo/branch/file) lives in `auth.json` and is shared across all devices.
+There's no per-device setup — every browser that unlocks with the team
+password is already wired to push.
 
-1. Open the **Manage** tab → **Set up GitHub auto-sync**.
-2. Create a fine-grained personal access token:
-   - github.com → Settings → Developer settings → Personal access tokens →
-     Fine-grained tokens → **Generate new token**.
-   - Resource owner: your account.
-   - Repository access: *Only select repositories* → pick this repo.
-   - Repository permissions → **Contents: Read and write**.
-   - Generate. Copy the token (starts with `github_pat_…`).
-3. Paste owner / repo / branch / file path / token into the dialog and click
-   **Test &amp; save**. The token is encrypted with your password before being
-   stored locally.
-
-### What happens after setup
-
-- Every add / edit / delete in the Manage tab schedules a debounced commit
-  (1.5s after the last change) that overwrites `data.js` on the configured
-  branch with a freshly serialized version of the chargemaster.
-- A small status pill in the header shows sync state: *Pending changes…*,
-  *Saving…*, *Synced HH:MM:SS*, or *Sync error*.
-- GitHub Pages rebuilds the site within ~1 minute, so other users see the new
-  prices on their next page load (after the CDN cache flushes).
-
-### Disconnecting
-
-In Manage → **Disconnect** removes the token + config from this device.
-The published chargemaster on GitHub is unchanged.
+If two people edit at once, the second save will hit a 409 conflict; the
+banner says to refresh and re-apply your changes.
 
 ## Data shape (`data.js`)
 
