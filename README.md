@@ -9,6 +9,8 @@ building quick patient estimates, and editing charge codes.
 | --- | --- |
 | `index.html` | The whole app (UI + logic). |
 | `data.js` | The chargemaster data (codes, prices, descriptions). |
+| `auth.json` | Shared-password salt + encrypted verifier (see below). |
+| `emu.jpg` | Logo (header + auth screen + favicon). |
 | `Charge master 2026.pdf` | Source document. |
 
 ## Run / host
@@ -20,33 +22,63 @@ building quick patient estimates, and editing charge codes.
 ## Tabs
 
 - **Browse** — every charge grouped by section, free-text search, optional toggle
-  for the 14 proposed-discontinued codes. Click `+ Estimate` on any row to add it;
-  rows already in the estimate are **highlighted yellow** until you remove them
-  or click *Reset*.
+  for the 14 proposed-discontinued codes. Click anywhere on a row to add it to
+  the estimate (or remove it if it's already there). Rows already in the
+  estimate are **highlighted yellow** until you remove them or click *Reset*.
 - **Quick Estimate** — add charges by typing (autocomplete) or by multi-selecting
   in the picker. Edit quantities, remove lines, *Reset* to clear, *Copy as text*
   to dump a plain-text version.
 - **Manage** — add new codes, edit existing ones, delete, mark discontinued.
   Export/import JSON for offline backups, or set up GitHub auto-sync (below).
 
-## Password protection
+## Password protection (shared)
 
-On first launch the app asks you to set a password. After that, every open
-requires entering it.
+The app asks for a single team password to unlock. Everyone on the team uses
+the same password, regardless of device.
 
-What the password actually does:
+### How it works
 
-- ✅ Locks the app's UI behind a password screen.
-- ✅ Encrypts your GitHub access token (AES-GCM, key derived from your password
-  via PBKDF2). Without the password the stored token can't be decrypted.
+- `auth.json` in the repo holds a random salt and an encrypted verifier
+  string ("OK-CHARGEMASTER"). On unlock the browser derives a key from the
+  password (PBKDF2 200k SHA-256) and tries to decrypt the verifier. If
+  decryption produces the expected string, the password is correct.
+- The same key is used (per-device) to encrypt the GitHub PAT in localStorage.
+
+### What the password protects
+
+- ✅ Gates the app's UI for casual visitors.
+- ✅ Encrypts the GitHub token stored on each device.
 - ❌ Does **not** hide the published `data.js` file. Anyone with the GitHub
-  Pages URL can fetch it directly. If you need real protection of the data,
-  use a private repo + a host that supports auth (Cloudflare Access,
-  Netlify Identity, etc.).
+  Pages URL can fetch it directly.
 
-The password is stored only on this device — re-setting up on a second device
-means choosing a new password there. Click *Forget password* on the unlock
-screen to wipe local auth data and start over.
+### Rotating the password
+
+Generate a new salt + verifier with the new password and overwrite `auth.json`,
+then redeploy. Existing browsers will fail to unlock with the old password and
+their stored PATs will become unreadable (the app silently clears them on
+next unlock attempt — users just re-enter the token once).
+
+To regenerate `auth.json` for a new password, run this Node snippet
+(requires Node 18+):
+
+```sh
+node -e '
+const { webcrypto } = require("crypto");
+(async () => {
+  const password = "NEW-PASSWORD-HERE";
+  const enc = new TextEncoder();
+  const salt = webcrypto.getRandomValues(new Uint8Array(16));
+  const baseKey = await webcrypto.subtle.importKey("raw", enc.encode(password), {name:"PBKDF2"}, false, ["deriveKey"]);
+  const key = await webcrypto.subtle.deriveKey(
+    {name:"PBKDF2", salt, iterations:200000, hash:"SHA-256"},
+    baseKey, {name:"AES-GCM", length:256}, false, ["encrypt"]);
+  const iv = webcrypto.getRandomValues(new Uint8Array(12));
+  const ct = await webcrypto.subtle.encrypt({name:"AES-GCM", iv}, key, enc.encode("OK-CHARGEMASTER"));
+  const hex = b => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
+  console.log(JSON.stringify({salt: hex(salt), verifier: hex(iv)+":"+hex(ct), iterations:200000, hash:"SHA-256"}, null, 2));
+})();
+'
+```
 
 ## GitHub auto-sync
 
