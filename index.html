@@ -498,6 +498,11 @@
     font-size: 13px;
     margin-bottom: 14px;
     border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
   }
   .save-banner.saved {
     background: #e8f6ec;
@@ -733,6 +738,7 @@
       </div>
       <div id="save-banner" class="save-banner saved">
         <span id="save-banner-text">All changes saved.</span>
+        <button class="tiny danger" id="discard-cm-btn" style="display:none">Discard changes</button>
       </div>
       <div class="browse-controls">
         <input type="search" id="mgr-search" placeholder="Search…" autocomplete="off" />
@@ -1120,15 +1126,35 @@
   function renderSaveBanner() {
     const banner = document.getElementById("save-banner");
     const btn = document.getElementById("save-cm-btn");
+    const discardBtn = document.getElementById("discard-cm-btn");
     if (!banner || !btn) return;
     if (hasPendingChanges()) {
       setSaveBannerState("unsaved");
       btn.disabled = false;
+      if (discardBtn) discardBtn.style.display = "";
     } else {
       // Only set to "saved" if not already showing a more specific message
       if (!banner.classList.contains("saved")) setSaveBannerState("saved");
       btn.disabled = true;
+      if (discardBtn) discardBtn.style.display = "none";
     }
+  }
+
+  function discardChanges() {
+    if (!hasPendingChanges()) return;
+    if (!confirm("Discard all unsaved changes and revert to the published chargemaster?")) return;
+    localStorage.removeItem(STORAGE_KEY);
+    setPending(false);
+    cm = JSON.parse(JSON.stringify(window.CHARGEMASTER_SEED));
+    // Drop estimate lines that reference codes that no longer exist
+    estimate = estimate.filter(e => itemByCode(e.code));
+    saveEstimate();
+    setSaveBannerState("saved", "Unsaved changes discarded.");
+    setSyncStatus("Saved", "ok");
+    renderMeta();
+    renderManage();
+    renderBrowse();
+    renderEstimate();
   }
 
   function setSaveBannerState(state, customText) {
@@ -1727,8 +1753,9 @@
       });
       document.getElementById("m-save").addEventListener("click", saveEditFromModal);
 
-      // Save button
+      // Save / Discard buttons
       document.getElementById("save-cm-btn").addEventListener("click", saveToChargemaster);
+      document.getElementById("discard-cm-btn").addEventListener("click", discardChanges);
 
       // Header buttons
       document.getElementById("btn-print").addEventListener("click", () => window.print());
