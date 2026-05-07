@@ -70,10 +70,10 @@
     gap: 14px;
   }
   header.app .logo {
-    width: 56px;
-    height: 56px;
+    width: 78px;
+    height: 60px;
     border-radius: 10px;
-    object-fit: cover;
+    object-fit: contain;
     border: 2px solid var(--gold);
     background: var(--gold);
     flex-shrink: 0;
@@ -215,6 +215,8 @@
   tbody tr:hover td { background: var(--hover); }
   tbody tr.selected td { background: var(--selected); }
   tbody tr.discontinued td { opacity: 0.6; font-style: italic; }
+  /* Clickable rows in browse */
+  tbody tr.clickable { cursor: pointer; }
   /* Yellow highlight for charges already in the estimate */
   tbody tr.in-estimate td {
     background: var(--highlight) !important;
@@ -408,10 +410,10 @@
     margin: -8px 0 12px;
   }
   .auth-logo {
-    width: 110px;
-    height: 110px;
+    width: 156px;
+    height: 120px;
     border-radius: 14px;
-    object-fit: cover;
+    object-fit: contain;
     background: var(--gold);
     border: 3px solid var(--gold);
     box-shadow: 0 4px 18px rgba(0,0,0,0.12);
@@ -538,29 +540,28 @@
     </div>
     <h1>CEAMS Chargemaster</h1>
 
-    <!-- Set up password (first run on this device) -->
-    <div id="auth-mode-setup" style="display:none">
-      <p class="sub">Set a password to protect this app on this device. You'll re-enter it each time you open the app, and it's used to encrypt your GitHub access token.</p>
-      <label for="auth-new-pw">New password</label>
-      <input type="password" id="auth-new-pw" autocomplete="new-password" />
-      <label for="auth-new-pw2">Confirm password</label>
-      <input type="password" id="auth-new-pw2" autocomplete="new-password" />
-      <button class="primary" id="auth-setup-btn">Set password &amp; continue</button>
-      <div class="auth-error" id="auth-setup-err" style="display:none"></div>
+    <!-- Loading auth config -->
+    <div id="auth-mode-loading" style="display:none">
+      <p class="sub" style="margin-top:14px">Loading…</p>
     </div>
 
-    <!-- Unlock (returning) -->
+    <!-- Unlock -->
     <div id="auth-mode-unlock" style="display:none">
-      <p class="sub">Enter your password to unlock the chargemaster.</p>
+      <p class="sub">Enter the team password to unlock the chargemaster.</p>
       <label for="auth-pw">Password</label>
       <input type="password" id="auth-pw" autocomplete="current-password" />
       <button class="primary" id="auth-unlock-btn">Unlock</button>
       <div class="auth-error" id="auth-unlock-err" style="display:none"></div>
-      <button class="auth-link" id="auth-forget-btn">Forget password / reset this device</button>
+      <button class="auth-link" id="auth-forget-btn">Reset this device (clear local data)</button>
+    </div>
+
+    <!-- Auth-config load error -->
+    <div id="auth-mode-err" style="display:none">
+      <div class="auth-error" id="auth-bootstrap-err"></div>
     </div>
 
     <div class="auth-foot">
-      The password protects this app's UI and encrypts any GitHub token you store here. It does <i>not</i> hide the published chargemaster file at the GitHub Pages URL.
+      The password protects this app's UI and encrypts the GitHub token stored on this device. It does <i>not</i> hide the published chargemaster file at the GitHub Pages URL.
     </div>
   </div>
 </div>
@@ -843,12 +844,11 @@
   // ============================================================
   const STORAGE_KEY        = "chargemaster_v1";
   const ESTIMATE_KEY       = "chargemaster_estimate_v1";
-  const AUTH_SALT_KEY      = "cm_auth_salt";
-  const AUTH_VERIFIER_KEY  = "cm_auth_verifier";
   const PAT_ENC_KEY        = "cm_pat_encrypted";
   const SYNC_CONFIG_KEY    = "cm_sync_config";
   const VERIFIER_PT        = "OK-CHARGEMASTER";
-  const PBKDF2_ITER        = 200000;
+  const DEFAULT_PBKDF2_ITER = 200000;
+  const AUTH_CONFIG_URL    = "auth.json";
 
   // ============================================================
   // CRYPTO HELPERS (WebCrypto)
@@ -874,12 +874,12 @@
     for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
     return btoa(bin);
   }
-  async function deriveKey(password, salt) {
+  async function deriveKey(password, salt, iterations, hash) {
     const baseKey = await crypto.subtle.importKey(
       "raw", _enc.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]
     );
     return crypto.subtle.deriveKey(
-      { name: "PBKDF2", salt: salt, iterations: PBKDF2_ITER, hash: "SHA-256" },
+      { name: "PBKDF2", salt: salt, iterations: iterations || DEFAULT_PBKDF2_ITER, hash: hash || "SHA-256" },
       baseKey,
       { name: "AES-GCM", length: 256 },
       false,
@@ -904,25 +904,28 @@
   // ============================================================
   let authKey = null;     // CryptoKey when unlocked
   let currentPat = null;  // decrypted PAT when unlocked + configured
+  let sharedAuth = null;  // { salt, verifier, iterations, hash } loaded from auth.json
 
-  function isAuthSetup() { return !!localStorage.getItem(AUTH_VERIFIER_KEY); }
+  function setAuthMode(mode) {
+    ["loading", "unlock", "err"].forEach(m => {
+      const el = document.getElementById("auth-mode-" + m);
+      if (el) el.style.display = (mode === m) ? "" : "none";
+    });
+  }
 
   function showAuthScreen() {
     document.getElementById("auth-screen").style.display = "flex";
     document.getElementById("app").hidden = true;
-    document.getElementById("auth-setup-err").style.display = "none";
     document.getElementById("auth-unlock-err").style.display = "none";
-    if (isAuthSetup()) {
-      document.getElementById("auth-mode-setup").style.display = "none";
-      document.getElementById("auth-mode-unlock").style.display = "";
-      document.getElementById("auth-pw").value = "";
-      document.getElementById("auth-pw").focus();
+    if (sharedAuth) {
+      setAuthMode("unlock");
+      const pw = document.getElementById("auth-pw");
+      pw.value = "";
+      pw.focus();
     } else {
-      document.getElementById("auth-mode-setup").style.display = "";
-      document.getElementById("auth-mode-unlock").style.display = "none";
-      document.getElementById("auth-new-pw").value = "";
-      document.getElementById("auth-new-pw2").value = "";
-      document.getElementById("auth-new-pw").focus();
+      setAuthMode("loading");
+      // Kick off (or re-kick) auth bootstrap
+      bootstrapAuth();
     }
   }
 
@@ -931,26 +934,23 @@
     document.getElementById("app").hidden = false;
   }
 
-  async function setupPasswordFromUI() {
-    const errEl = document.getElementById("auth-setup-err");
-    errEl.style.display = "none";
-    const p1 = document.getElementById("auth-new-pw").value;
-    const p2 = document.getElementById("auth-new-pw2").value;
-    if (p1.length < 6) { errEl.textContent = "Password must be at least 6 characters."; errEl.style.display = ""; return; }
-    if (p1 !== p2) { errEl.textContent = "Passwords do not match."; errEl.style.display = ""; return; }
+  async function bootstrapAuth() {
     try {
-      const salt = crypto.getRandomValues(new Uint8Array(16));
-      const key = await deriveKey(p1, salt);
-      const verifier = await encryptStr(key, VERIFIER_PT);
-      localStorage.setItem(AUTH_SALT_KEY, buf2hex(salt));
-      localStorage.setItem(AUTH_VERIFIER_KEY, verifier);
-      authKey = key;
-      currentPat = null;
-      hideAuthScreen();
-      bootApp();
-    } catch (e) {
-      errEl.textContent = "Could not set password: " + e.message;
-      errEl.style.display = "";
+      // cache-bust so password rotations are picked up
+      const url = AUTH_CONFIG_URL + "?t=" + Date.now();
+      const resp = await fetch(url, { cache: "no-cache" });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      const cfg = await resp.json();
+      if (!cfg || !cfg.salt || !cfg.verifier) throw new Error("auth.json is missing salt/verifier");
+      sharedAuth = cfg;
+      setAuthMode("unlock");
+      const pw = document.getElementById("auth-pw");
+      pw.value = "";
+      pw.focus();
+    } catch (err) {
+      setAuthMode("err");
+      document.getElementById("auth-bootstrap-err").textContent =
+        "Could not load auth config (" + err.message + "). If you opened this file directly with file://, run a local server (e.g. python3 -m http.server) and reload.";
     }
   }
 
@@ -958,15 +958,13 @@
     const errEl = document.getElementById("auth-unlock-err");
     errEl.style.display = "none";
     const pw = document.getElementById("auth-pw").value;
-    if (!pw) { errEl.textContent = "Enter your password."; errEl.style.display = ""; return; }
+    if (!pw) { errEl.textContent = "Enter the password."; errEl.style.display = ""; return; }
+    if (!sharedAuth) { errEl.textContent = "Auth config not loaded."; errEl.style.display = ""; return; }
     try {
-      const saltHex = localStorage.getItem(AUTH_SALT_KEY);
-      const verifier = localStorage.getItem(AUTH_VERIFIER_KEY);
-      if (!saltHex || !verifier) { errEl.textContent = "No password set up."; errEl.style.display = ""; return; }
-      const salt = new Uint8Array(hex2buf(saltHex));
-      const key = await deriveKey(pw, salt);
+      const salt = new Uint8Array(hex2buf(sharedAuth.salt));
+      const key = await deriveKey(pw, salt, sharedAuth.iterations, sharedAuth.hash);
       let pt;
-      try { pt = await decryptStr(key, verifier); }
+      try { pt = await decryptStr(key, sharedAuth.verifier); }
       catch (_) { pt = null; }
       if (pt !== VERIFIER_PT) {
         errEl.textContent = "Wrong password.";
@@ -974,12 +972,23 @@
         return;
       }
       authKey = key;
-      // Decrypt PAT if previously configured
-      const patEnc = localStorage.getItem(PAT_ENC_KEY);
-      if (patEnc) {
-        try { currentPat = await decryptStr(authKey, patEnc); }
-        catch (_) { currentPat = null; }
+      // Try shared (repo-committed) PAT first, then fall back to local override.
+      let patPlain = null;
+      if (sharedAuth.patEnc) {
+        try { patPlain = await decryptStr(authKey, sharedAuth.patEnc); }
+        catch (_) { patPlain = null; }
       }
+      if (!patPlain) {
+        const localEnc = localStorage.getItem(PAT_ENC_KEY);
+        if (localEnc) {
+          try { patPlain = await decryptStr(authKey, localEnc); }
+          catch (_) {
+            // Stale local PAT — clear it
+            localStorage.removeItem(PAT_ENC_KEY);
+          }
+        }
+      }
+      currentPat = patPlain;
       hideAuthScreen();
       bootApp();
     } catch (e) {
@@ -995,13 +1004,14 @@
     showAuthScreen();
   }
 
-  function forgetPassword() {
-    if (!confirm("This will erase your saved password and GitHub token from this browser. Local edits to the chargemaster will also be cleared. Continue?")) return;
-    localStorage.removeItem(AUTH_SALT_KEY);
-    localStorage.removeItem(AUTH_VERIFIER_KEY);
+  function forgetLocal() {
+    if (!confirm("Clear the saved GitHub token and local chargemaster cache from this browser? You'll need to re-enter the team password to unlock again.")) return;
     localStorage.removeItem(PAT_ENC_KEY);
     localStorage.removeItem(SYNC_CONFIG_KEY);
     localStorage.removeItem(STORAGE_KEY);
+    // Also clear any old per-device auth keys from previous versions
+    localStorage.removeItem("cm_auth_salt");
+    localStorage.removeItem("cm_auth_verifier");
     authKey = null;
     currentPat = null;
     showAuthScreen();
@@ -1011,8 +1021,14 @@
   // GITHUB SYNC
   // ============================================================
   function getSyncConfig() {
-    try { return JSON.parse(localStorage.getItem(SYNC_CONFIG_KEY) || "null"); }
-    catch (e) { return null; }
+    try {
+      const local = JSON.parse(localStorage.getItem(SYNC_CONFIG_KEY) || "null");
+      if (local) return local;
+    } catch (e) {}
+    return (sharedAuth && sharedAuth.syncConfig) || null;
+  }
+  function isLocalSyncOverride() {
+    return !!localStorage.getItem(SYNC_CONFIG_KEY);
   }
   function isSyncConfigured() {
     return !!getSyncConfig() && !!currentPat;
@@ -1180,12 +1196,17 @@
       errEl.style.display = "";
     }
   }
-  function disconnectSync() {
-    if (!confirm("Disconnect GitHub auto-sync? Your token will be removed from this browser. The published chargemaster on GitHub stays as it is.")) return;
+  async function disconnectSync() {
+    if (!confirm("Clear your local sync override? You'll fall back to the shared sync config from auth.json (if present).")) return;
     localStorage.removeItem(SYNC_CONFIG_KEY);
     localStorage.removeItem(PAT_ENC_KEY);
-    currentPat = null;
-    setSyncStatus("", null);
+    // Fall back to shared PAT
+    if (authKey && sharedAuth && sharedAuth.patEnc) {
+      try { currentPat = await decryptStr(authKey, sharedAuth.patEnc); }
+      catch (_) { currentPat = null; }
+    } else {
+      currentPat = null;
+    }
     renderSyncCard();
   }
 
@@ -1196,15 +1217,19 @@
     const nowBtn = document.getElementById("sync-now-btn");
     const discBtn = document.getElementById("sync-disconnect-btn");
     if (cfg && currentPat) {
+      const source = isLocalSyncOverride() ? "local override" : "shared via auth.json";
       info.innerHTML = `<b>GitHub auto-sync: on</b>
-        <div class="small">${escapeHtml(cfg.owner)}/${escapeHtml(cfg.repo)} · branch <code>${escapeHtml(cfg.branch)}</code> · <code>${escapeHtml(cfg.path)}</code></div>`;
-      setupBtn.style.display = "none";
+        <div class="small">${escapeHtml(cfg.owner)}/${escapeHtml(cfg.repo)} · branch <code>${escapeHtml(cfg.branch)}</code> · <code>${escapeHtml(cfg.path)}</code> · <i>${source}</i></div>`;
+      setupBtn.textContent = isLocalSyncOverride() ? "Edit local override" : "Override locally";
+      setupBtn.style.display = "";
       nowBtn.style.display = "";
-      discBtn.style.display = "";
+      discBtn.style.display = isLocalSyncOverride() ? "" : "none";
+      discBtn.textContent = "Clear local override";
       setSyncStatus("Connected", "ok");
     } else {
       info.innerHTML = `<b>GitHub auto-sync: off</b>
-        <div class="small">Edits stay in this browser only. Set up auto-sync to push changes to the repo automatically.</div>`;
+        <div class="small">No token available. Set up auto-sync to push changes to the repo.</div>`;
+      setupBtn.textContent = "Set up GitHub auto-sync";
       setupBtn.style.display = "";
       nowBtn.style.display = "none";
       discBtn.style.display = "none";
@@ -1338,16 +1363,20 @@
       tbody.appendChild(tr);
       groups[sec].forEach(it => {
         const row = document.createElement("tr");
+        row.classList.add("clickable");
         if (it.discontinued) row.classList.add("discontinued");
-        if (inEstimate(it.code)) row.classList.add("in-estimate");
+        const here = inEstimate(it.code);
+        if (here) row.classList.add("in-estimate");
+        row.dataset.code = it.code;
+        row.title = here ? "Click to remove from estimate" : "Click to add to estimate";
         row.innerHTML = `
           <td class="code">${escapeHtml(it.code)}</td>
-          <td>${escapeHtml(it.service)}${it.discontinued ? ' <span class="pill disc">discontinued</span>' : ''}${inEstimate(it.code) ? ' <span class="pill ok">in estimate</span>' : ''}</td>
+          <td>${escapeHtml(it.service)}${it.discontinued ? ' <span class="pill disc">discontinued</span>' : ''}${here ? ' <span class="pill ok">in estimate</span>' : ''}</td>
           <td>${escapeHtml(it.unit || "")}</td>
           <td class="price">${fmt(it.price)}</td>
           <td class="desc">${escapeHtml(it.description || "")}</td>
           <td class="actions">
-            ${inEstimate(it.code)
+            ${here
               ? `<button class="tiny" data-remove="${escapeAttr(it.code)}" title="Remove from estimate">− Remove</button>`
               : `<button class="tiny primary" data-add="${escapeAttr(it.code)}">+ Estimate</button>`
             }
@@ -1356,11 +1385,21 @@
         tbody.appendChild(row);
       });
     });
+    // Whole-row click toggles add/remove (skip if user clicked an interactive child)
+    tbody.querySelectorAll("tr.clickable").forEach(row => {
+      row.addEventListener("click", (e) => {
+        if (e.target.closest("button, input, a")) return;
+        const code = row.dataset.code;
+        if (!code) return;
+        if (inEstimate(code)) removeFromEstimate(code);
+        else addToEstimate(code);
+      });
+    });
     tbody.querySelectorAll("[data-add]").forEach(b => {
-      b.addEventListener("click", () => addToEstimate(b.dataset.add));
+      b.addEventListener("click", (e) => { e.stopPropagation(); addToEstimate(b.dataset.add); });
     });
     tbody.querySelectorAll("[data-remove]").forEach(b => {
-      b.addEventListener("click", () => removeFromEstimate(b.dataset.remove));
+      b.addEventListener("click", (e) => { e.stopPropagation(); removeFromEstimate(b.dataset.remove); });
     });
   }
 
@@ -1809,14 +1848,8 @@
   // INIT
   // ============================================================
   // Auth screen wiring
-  document.getElementById("auth-setup-btn").addEventListener("click", setupPasswordFromUI);
   document.getElementById("auth-unlock-btn").addEventListener("click", attemptUnlockFromUI);
-  document.getElementById("auth-forget-btn").addEventListener("click", forgetPassword);
-  ["auth-new-pw", "auth-new-pw2"].forEach(id => {
-    document.getElementById(id).addEventListener("keydown", (e) => {
-      if (e.key === "Enter") setupPasswordFromUI();
-    });
-  });
+  document.getElementById("auth-forget-btn").addEventListener("click", forgetLocal);
   document.getElementById("auth-pw").addEventListener("keydown", (e) => {
     if (e.key === "Enter") attemptUnlockFromUI();
   });
