@@ -972,16 +972,23 @@
         return;
       }
       authKey = key;
-      // Decrypt PAT if previously stored on this device with the same password
-      const patEnc = localStorage.getItem(PAT_ENC_KEY);
-      if (patEnc) {
-        try { currentPat = await decryptStr(authKey, patEnc); }
-        catch (_) {
-          currentPat = null;
-          // Stale PAT (e.g., password rotated) — clear it
-          localStorage.removeItem(PAT_ENC_KEY);
+      // Try shared (repo-committed) PAT first, then fall back to local override.
+      let patPlain = null;
+      if (sharedAuth.patEnc) {
+        try { patPlain = await decryptStr(authKey, sharedAuth.patEnc); }
+        catch (_) { patPlain = null; }
+      }
+      if (!patPlain) {
+        const localEnc = localStorage.getItem(PAT_ENC_KEY);
+        if (localEnc) {
+          try { patPlain = await decryptStr(authKey, localEnc); }
+          catch (_) {
+            // Stale local PAT — clear it
+            localStorage.removeItem(PAT_ENC_KEY);
+          }
         }
       }
+      currentPat = patPlain;
       hideAuthScreen();
       bootApp();
     } catch (e) {
@@ -1014,8 +1021,14 @@
   // GITHUB SYNC
   // ============================================================
   function getSyncConfig() {
-    try { return JSON.parse(localStorage.getItem(SYNC_CONFIG_KEY) || "null"); }
-    catch (e) { return null; }
+    try {
+      const local = JSON.parse(localStorage.getItem(SYNC_CONFIG_KEY) || "null");
+      if (local) return local;
+    } catch (e) {}
+    return (sharedAuth && sharedAuth.syncConfig) || null;
+  }
+  function isLocalSyncOverride() {
+    return !!localStorage.getItem(SYNC_CONFIG_KEY);
   }
   function isSyncConfigured() {
     return !!getSyncConfig() && !!currentPat;
@@ -1183,12 +1196,17 @@
       errEl.style.display = "";
     }
   }
-  function disconnectSync() {
-    if (!confirm("Disconnect GitHub auto-sync? Your token will be removed from this browser. The published chargemaster on GitHub stays as it is.")) return;
+  async function disconnectSync() {
+    if (!confirm("Clear your local sync override? You'll fall back to the shared sync config from auth.json (if present).")) return;
     localStorage.removeItem(SYNC_CONFIG_KEY);
     localStorage.removeItem(PAT_ENC_KEY);
-    currentPat = null;
-    setSyncStatus("", null);
+    // Fall back to shared PAT
+    if (authKey && sharedAuth && sharedAuth.patEnc) {
+      try { currentPat = await decryptStr(authKey, sharedAuth.patEnc); }
+      catch (_) { currentPat = null; }
+    } else {
+      currentPat = null;
+    }
     renderSyncCard();
   }
 
@@ -1199,15 +1217,19 @@
     const nowBtn = document.getElementById("sync-now-btn");
     const discBtn = document.getElementById("sync-disconnect-btn");
     if (cfg && currentPat) {
+      const source = isLocalSyncOverride() ? "local override" : "shared via auth.json";
       info.innerHTML = `<b>GitHub auto-sync: on</b>
-        <div class="small">${escapeHtml(cfg.owner)}/${escapeHtml(cfg.repo)} · branch <code>${escapeHtml(cfg.branch)}</code> · <code>${escapeHtml(cfg.path)}</code></div>`;
-      setupBtn.style.display = "none";
+        <div class="small">${escapeHtml(cfg.owner)}/${escapeHtml(cfg.repo)} · branch <code>${escapeHtml(cfg.branch)}</code> · <code>${escapeHtml(cfg.path)}</code> · <i>${source}</i></div>`;
+      setupBtn.textContent = isLocalSyncOverride() ? "Edit local override" : "Override locally";
+      setupBtn.style.display = "";
       nowBtn.style.display = "";
-      discBtn.style.display = "";
+      discBtn.style.display = isLocalSyncOverride() ? "" : "none";
+      discBtn.textContent = "Clear local override";
       setSyncStatus("Connected", "ok");
     } else {
       info.innerHTML = `<b>GitHub auto-sync: off</b>
-        <div class="small">Edits stay in this browser only. Set up auto-sync to push changes to the repo automatically.</div>`;
+        <div class="small">No token available. Set up auto-sync to push changes to the repo.</div>`;
+      setupBtn.textContent = "Set up GitHub auto-sync";
       setupBtn.style.display = "";
       nowBtn.style.display = "none";
       discBtn.style.display = "none";
