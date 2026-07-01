@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-01T18:59:14.569Z
+// Auto-updated by the chargemaster web app on 2026-07-01T19:10:42.536Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -187,6 +187,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"1555","section":"Discontinued","service":"U/S","unit":"per procedure","price":131,"description":"Proposed discontinued: Seems like we are no longer charging for this","discontinued":true},
     {"code":"1517","section":"Discontinued","service":"CAPE Consultation","unit":"per consult","price":142,"description":"Proposed discontinued: Used when another service is primary on case and consults","discontinued":true},
     {"code":"1600","section":"Discontinued","service":"Dental prophylaxis (ferret)","unit":"per procedure","price":868,"description":"Proposed discontinued: Have exotic dental cleaning charge now, this is a dog code","discontinued":true},
-    {"code":"1566","section":"Discontinued","service":"Lavage","unit":"per procedure","price":80,"description":"Proposed discontinued: Originally marked as crop wash; code looks infrequently used","discontinued":true}
+    {"code":"1566","section":"Discontinued","service":"Lavage","unit":"per procedure","price":80,"description":"Proposed discontinued: Originally marked as crop wash; code looks infrequently used","discontinued":true},
+    {"code":"7006","section":"Other Services","service":"CBC","unit":"per procedure","price":160,"description":"Central lab"}
   ]
 };
