@@ -3,7 +3,7 @@
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
-  sections: ["Examinations","Field Service","Hospitalizations","Diagnostics","Procedures","Supplies","Discontinued"],
+  sections: ["Examinations","Field Service","Hospitalizations","Diagnostics","Procedures","Supplies","Other Services","Discontinued"],
   items: [
     {"code":"1510","section":"Examinations","service":"Exotics Exam level 1","unit":"per appt","price":170,"description":"New problem visit, annual exam visit, establishing exam with no rDVM records"},
     {"code":"1513","section":"Examinations","service":"Exotics Exam level 2","unit":"per appt","price":230,"description":"Exam with rDVM records to be reviewed (relevant to referral/case)"},
