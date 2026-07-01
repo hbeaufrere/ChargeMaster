@@ -1,12 +1,12 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-01T19:10:42.536Z
+// Auto-updated by the chargemaster web app on 2026-07-01T21:34:05.134Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
   sections: ["Examinations","Field Service","Hospitalizations","Diagnostics","Procedures","Supplies","Other Services","Discontinued"],
   items: [
-    {"code":"1510","section":"Examinations","service":"Exotics Exam level 1","unit":"per appt","price":170,"description":"New problem visit, annual exam visit, establishing exam with no rDVM records"},
-    {"code":"1513","section":"Examinations","service":"Exotics Exam level 2","unit":"per appt","price":230,"description":"Exam with rDVM records to be reviewed (relevant to referral/case)"},
+    {"code":"1510","section":"Examinations","service":"Exotics Exam level 1","unit":"per appt","price":177,"description":"New problem visit, annual exam visit, establishing exam with no rDVM records"},
+    {"code":"1513","section":"Examinations","service":"Exotics Exam level 2","unit":"per appt","price":249,"description":"Exam with rDVM records to be reviewed (relevant to referral/case)"},
     {"code":"1511","section":"Examinations","service":"Progress exam","unit":"per appt","price":107,"description":"Recheck for existing problem within 6 months; cannot be used for new problem if patient is current on annual exam"},
     {"code":"1512","section":"Examinations","service":"Emergency Exam","unit":"per appt","price":360,"description":"Walk in or same day scheduled ER"},
     {"code":"1518","section":"Examinations","service":"Wildlife exam","unit":"per appt","price":43,"description":"Charged for wild animals from wildlife rehabs, not resident/ambassador animals/client owned"},
