@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-01T21:41:07.539Z
+// Auto-updated by the chargemaster web app on 2026-07-02T20:54:27.278Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -87,7 +87,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"1574","section":"Procedures","service":"Mass removal","unit":"per procedure","price":268,"description":"Charged per mass, does not include aspirates/bx/etc."},
     {"code":"9911","section":"Procedures","service":"Misc. Surgery","unit":"per procedure","price":230,"description":"Can be entered incrementally at clinicians discretion; used for any procedure that does not currently have a billing code (such as stone removal via urethra)"},
     {"code":"1570","section":"Procedures","service":"Neuter (rabbit and rodent)","unit":"per procedure","price":508,"description":"Elective, healthy animal"},
-    {"code":"8936","section":"Procedures","service":"Orthopedic surgery, minor","unit":"per procedure","price":213,"description":"Single pin placement, luxation"},
+    {"code":"8936","section":"Procedures","service":"Orthopedic surgery, minor","unit":"per procedure","price":213,"description":"Single pin placement, luxation, CRC price"},
     {"code":"1553","section":"Procedures","service":"Orthopedic surgery, moderate","unit":"per procedure","price":508,"description":"Simple plate/fixator"},
     {"code":"8937","section":"Procedures","service":"Orthopedic surgery, major","unit":"per procedure","price":1205,"description":"Difficult plate/fixator, multiple fx repair, circlage wire"},
     {"code":"2753","section":"Procedures","service":"PECABO/TECABO, unilateral","unit":"per procedure","price":1778,"description":"One sided partial or total ear canal ablation +/- bulla osteotomy"},
