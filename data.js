@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-02T20:54:27.278Z
+// Auto-updated by the chargemaster web app on 2026-07-07T15:07:04.741Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -7,7 +7,7 @@ window.CHARGEMASTER_SEED = {
   items: [
     {"code":"1510","section":"Examinations","service":"Exotics Exam level 1","unit":"per appt","price":177,"description":"New problem visit, annual exam visit, establishing exam with no rDVM records"},
     {"code":"1513","section":"Examinations","service":"Exotics Exam level 2","unit":"per appt","price":230,"description":"Exam with rDVM records to be reviewed (relevant to referral/case)"},
-    {"code":"1511","section":"Examinations","service":"Progress exam","unit":"per appt","price":107,"description":"Recheck for existing problem within 6 months; cannot be used for new problem if patient is current on annual exam"},
+    {"code":"1511","section":"Examinations","service":"Progress exam","unit":"per appt","price":116,"description":"Recheck for existing problem within 6 months; cannot be used for new problem if patient is current on annual exam"},
     {"code":"1512","section":"Examinations","service":"Emergency Exam","unit":"per appt","price":360,"description":"Walk in or same day scheduled ER"},
     {"code":"1518","section":"Examinations","service":"Wildlife exam","unit":"per appt","price":43,"description":"Charged for wild animals from wildlife rehabs, not resident/ambassador animals/client owned"},
     {"code":"1104","section":"Examinations","service":"Health Certificate","unit":"per appt","price":62,"description":"Charged in addition to exam fee when health certificate is needed"},
@@ -87,7 +87,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"1574","section":"Procedures","service":"Mass removal","unit":"per procedure","price":268,"description":"Charged per mass, does not include aspirates/bx/etc."},
     {"code":"9911","section":"Procedures","service":"Misc. Surgery","unit":"per procedure","price":230,"description":"Can be entered incrementally at clinicians discretion; used for any procedure that does not currently have a billing code (such as stone removal via urethra)"},
     {"code":"1570","section":"Procedures","service":"Neuter (rabbit and rodent)","unit":"per procedure","price":508,"description":"Elective, healthy animal"},
-    {"code":"8936","section":"Procedures","service":"Orthopedic surgery, minor","unit":"per procedure","price":213,"description":"Single pin placement, luxation, CRC price"},
+    {"code":"8936","section":"Procedures","service":"Orthopedic surgery, minor","unit":"per procedure","price":213,"description":"Single pin placement, luxation"},
     {"code":"1553","section":"Procedures","service":"Orthopedic surgery, moderate","unit":"per procedure","price":508,"description":"Simple plate/fixator"},
     {"code":"8937","section":"Procedures","service":"Orthopedic surgery, major","unit":"per procedure","price":1205,"description":"Difficult plate/fixator, multiple fx repair, circlage wire"},
     {"code":"2753","section":"Procedures","service":"PECABO/TECABO, unilateral","unit":"per procedure","price":1778,"description":"One sided partial or total ear canal ablation +/- bulla osteotomy"},
