@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-08T16:38:21.196Z
+// Auto-updated by the chargemaster web app on 2026-07-08T16:42:20.869Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -187,7 +187,11 @@ window.CHARGEMASTER_SEED = {
     {"code":"1517","section":"Discontinued","service":"CAPE Consultation","unit":"per consult","price":142,"description":"Proposed discontinued: Used when another service is primary on case and consults","discontinued":true},
     {"code":"1600","section":"Discontinued","service":"Dental prophylaxis (ferret)","unit":"per procedure","price":868,"description":"Proposed discontinued: Have exotic dental cleaning charge now, this is a dog code","discontinued":true},
     {"code":"1566","section":"Discontinued","service":"Lavage","unit":"per procedure","price":80,"description":"Proposed discontinued: Originally marked as crop wash; code looks infrequently used","discontinued":true},
-    {"code":"7006","section":"Other Services","service":"CBC","unit":"per procedure","price":160,"description":"Central lab"},
-    {"code":"1622","section":"Other Services","service":"Group Cremation <1kg","unit":"per procedure","price":0,"description":"Pathology pricing"}
+    {"code":"7006","section":"Other Services","service":"CBC","unit":"per procedure","price":160,"description":"Central lab pricing"},
+    {"code":"1622","section":"Other Services","service":"Group Cremation <1kg","unit":"per procedure","price":0,"description":"Pathology pricing"},
+    {"code":"1623","section":"Other Services","service":"Group cremation 1-10 kg","unit":"per procedure","price":29,"description":"Pathology pricing"},
+    {"code":"1624","section":"Other Services","service":"Group Cremation 10.1-30 kg","unit":"per procedure","price":57,"description":"Pathology pricing"},
+    {"code":"1939","section":"Other Services","service":"Group Cremation 30.1-60 kg","unit":"per procedure","price":89,"description":"Pathology pricing"},
+    {"code":"2189","section":"Examinations","service":"Group Cremation >60.1 kg","unit":"per procedure","price":112,"description":"Pathology pricing"}
   ]
 };
