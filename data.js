@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-08T17:39:02.992Z
+// Auto-updated by the chargemaster web app on 2026-07-08T22:03:22.443Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -15,7 +15,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"8927","section":"Examinations","service":"Tech appt","unit":"per appt","price":42,"description":"Appt completed by technician, not doctor"},
     {"code":"9031","section":"Examinations","service":"Technician time","unit":"per hour","price":93,"description":"Can be used for prolonged recovery or in any other case where a tech is needed for a prolonged time"},
     {"code":"1515","section":"Examinations","service":"Phone Consultation","unit":"per half hr","price":145,"description":"Resident/clinician consults with rdvm, zoo"},
-    {"code":"8916","section":"Examinations","service":"Aquatic Animal Exam","unit":"per system","price":157,"description":"In house exam for up to 3 fish within same system; if more than 3 patients, or evaluating more than one system, use more than one exam charge"},
+    {"code":"8916","section":"Examinations","service":"Aquatic Animal Exam","unit":"per system","price":157,"description":"In house exam for up to 3 fish within same system; if more than 3 patients, or evaluating more than one system, use more than one exam charge; includes anesthesia and euthanasia if needed"},
     {"code":"8990","section":"Examinations","service":"Aquatic Animal Progress Check","unit":"per system","price":110,"description":"Recheck for existing problem within 6 months; cannot be used for new problem if patient is current on annual exam"},
     {"code":"8987","section":"Examinations","service":"AAH Field Call","unit":"per hour","price":300,"description":"Used when evaluating any number of fish at a client's resident; charged per hour not per patient"},
     {"code":"1560","section":"Examinations","service":"Wildlife Exam, Raptor","unit":"per exam","price":30,"description":"CRC exam"},
