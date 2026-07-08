@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-08T15:17:06.419Z
+// Auto-updated by the chargemaster web app on 2026-07-08T15:30:03.617Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -26,18 +26,18 @@ window.CHARGEMASTER_SEED = {
     {"code":"8929","section":"Field Service","service":"MGZ Full day","unit":"per day","price":1477,"description":"Visit longer than 3 hours"},
     {"code":"8930","section":"Field Service","service":"MGZ Half day","unit":"per day","price":810,"description":"Visit shorter than 3 hours"},
     {"code":"8932","section":"Field Service","service":"Field Call Emergency Surcharge","unit":"per appt","price":356,"description":"Can be used for zoo/AHH for nonscheduled ERs"},
-    {"code":"1501","section":"Hospitalizations","service":"Day Case","unit":"per day","price":33,"description":"Use when animal is staying for workup/not staying overnight; should NOT charge incrementally"},
-    {"code":"9978","section":"Hospitalizations","service":"Aquatic Hosp Level 1","unit":"1-13 days","price":359,"description":"Hospitalization @ CABA"},
-    {"code":"9979","section":"Hospitalizations","service":"Aquatic Hosp Level 2","unit":"14-31 days","price":521,"description":"Hospitalization @ CABA"},
-    {"code":"1500","section":"Hospitalizations","service":"Bird (small)","unit":"per day","price":71,"description":"Budgies, cockatiels, lovebirds, conures"},
-    {"code":"1505","section":"Hospitalizations","service":"Bird (medium)","unit":"per day","price":76,"description":"Amazons, African greys"},
-    {"code":"1506","section":"Hospitalizations","service":"Bird (large)","unit":"per day","price":92,"description":"Cockatoos, Macaws"},
-    {"code":"1502","section":"Hospitalizations","service":"Primate","unit":"per day","price":217,"description":"PPE surcharge built in"},
-    {"code":"1503","section":"Hospitalizations","service":"Reptile (small)","unit":"per day","price":71,"description":"Leopard gecko, crested gecko, frogs"},
-    {"code":"1544","section":"Hospitalizations","service":"Reptile (medium)","unit":"per day","price":76,"description":"Beardie, RES, desert tortoise"},
-    {"code":"1545","section":"Hospitalizations","service":"Reptile (large)","unit":"per day","price":97,"description":"Iguanas, sulcata tortoises"},
-    {"code":"1504","section":"Hospitalizations","service":"Small mammal 1","unit":"per day","price":71,"description":"Rats, mice, hamsters, sugar glider"},
-    {"code":"1548","section":"Hospitalizations","service":"Small mammal 2","unit":"per day","price":91,"description":"Rabbits, guinea pigs, chinchillas, hedgehog"},
+    {"code":"1501","section":"Hospitalizations","service":"Day Case","unit":"per day","price":36,"description":"Use when animal is staying for workup/not staying overnight; should NOT charge incrementally"},
+    {"code":"9978","section":"Hospitalizations","service":"Aquatic Hosp Level 1","unit":"1-13 days","price":388,"description":"Hospitalization @ CABA"},
+    {"code":"9979","section":"Hospitalizations","service":"Aquatic Hosp Level 2","unit":"14-31 days","price":563,"description":"Hospitalization @ CABA"},
+    {"code":"1500","section":"Hospitalizations","service":"Bird (small)","unit":"per day","price":77,"description":"Budgies, cockatiels, lovebirds, conures"},
+    {"code":"1505","section":"Hospitalizations","service":"Bird (medium)","unit":"per day","price":83,"description":"Amazons, African greys"},
+    {"code":"1506","section":"Hospitalizations","service":"Bird (large)","unit":"per day","price":100,"description":"Cockatoos, Macaws"},
+    {"code":"1502","section":"Hospitalizations","service":"Primate","unit":"per day","price":235,"description":"PPE surcharge built in"},
+    {"code":"1503","section":"Hospitalizations","service":"Reptile (small)","unit":"per day","price":77,"description":"Leopard gecko, crested gecko, frogs"},
+    {"code":"1544","section":"Hospitalizations","service":"Reptile (medium)","unit":"per day","price":83,"description":"Beardie, RES, desert tortoise"},
+    {"code":"1545","section":"Hospitalizations","service":"Reptile (large)","unit":"per day","price":105,"description":"Iguanas, sulcata tortoises"},
+    {"code":"1504","section":"Hospitalizations","service":"Small mammal 1","unit":"per day","price":77,"description":"Rats, mice, hamsters, sugar glider"},
+    {"code":"1548","section":"Hospitalizations","service":"Small mammal 2","unit":"per day","price":99,"description":"Rabbits, guinea pigs, chinchillas, hedgehog"},
     {"code":"1589","section":"Hospitalizations","service":"Oxygen cage small","unit":"per day","price":158,"description":"Small snyder; Does NOT include hospitalization"},
     {"code":"1588","section":"Hospitalizations","service":"Oxygen cage large","unit":"per day","price":215,"description":"Large snyder; Does NOT include hospitalization"},
     {"code":"8933","section":"Hospitalizations","service":"Whole Room Hospitalization","unit":"per day","price":148,"description":"Use when patient occupies entire reptile room"},
