@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-08T17:00:56.327Z
+// Auto-updated by the chargemaster web app on 2026-07-08T17:25:10.144Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -203,6 +203,21 @@ window.CHARGEMASTER_SEED = {
     {"code":"7602","section":"Other Services","service":"Small Animal Chem 2","unit":"per procedure","price":222,"description":""},
     {"code":"7446","section":"Other Services","service":"Small Animal Chem 2 + Trig","unit":"per procedure","price":230,"description":"Central lab pricing"},
     {"code":"7568","section":"Other Services","service":"Ionized Calcium","unit":"per procedure","price":63,"description":"ER pricing"},
-    {"code":"1262","section":"Other Services","service":"Protein Electrophoresis- Albumin Only","unit":"per procedure","price":39,"description":"Central lab pricing"}
+    {"code":"1262","section":"Other Services","service":"Protein Electrophoresis- Albumin Only","unit":"per procedure","price":39,"description":"Central lab pricing"},
+    {"code":"1408","section":"Other Services","service":"Dental Radiograph, single","unit":"per procedure","price":38,"description":"DOSS pricing"},
+    {"code":"6045","section":"Other Services","service":"Whole body x-ray","unit":"per procedure","price":371,"description":"Radiology pricing; 4 views"},
+    {"code":"6145","section":"Other Services","service":"Whole body x-ray recheck","unit":"per procedure","price":236,"description":"Radiology pricing; 4 views"},
+    {"code":"6046","section":"Other Services","service":"Whole body x-ray (raptors)","unit":"per procedure","price":233,"description":"Radiology pricing"},
+    {"code":"6146","section":"Other Services","service":"Whole body x-ray recheck (raptors)","unit":"per procedure","price":152,"description":"Radiology pricing"},
+    {"code":"6252","section":"Other Services","service":"Tube check","unit":"per procedure","price":133,"description":"Radiology pricing"},
+    {"code":"6257","section":"Other Services","service":"Single view radiograph","unit":"per procedure","price":130,"description":"Radiology pricing; egg check or bird in box typically"},
+    {"code":"6955","section":"Other Services","service":"Non Dom Ultrasound","unit":"per procedure","price":555,"description":"Ultrasound pricing"},
+    {"code":"6600","section":"Other Services","service":"CT Scan (no contrast)","unit":"per procedure","price":1263,"description":"CT pricing"},
+    {"code":"6610","section":"Other Services","service":"CT Scan, Add'l area","unit":"per procedure","price":805,"description":"CT pricing"},
+    {"code":"6608","section":"Other Services","service":"Cone Beam CT","unit":"per procedure","price":594,"description":"DOSS pricing"},
+    {"code":"6618","section":"Other Services","service":"Cone Beam CT recheck","unit":"per procedure","price":324,"description":"DOSS pricing"},
+    {"code":"6650","section":"Other Services","service":"Contrast CT","unit":"per procedure","price":1701,"description":"CT pricing"},
+    {"code":"1004","section":"Other Services","service":"Contrast CT, recheck (within 6 months)","unit":"per procedure","price":1192,"description":"CT pricing"},
+    {"code":"6738","section":"Other Services","service":"PET CT with contrast","unit":"per procedure","price":1691,"description":"CT pricing"}
   ]
 };
