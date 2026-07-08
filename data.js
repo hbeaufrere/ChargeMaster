@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-08T17:25:10.144Z
+// Auto-updated by the chargemaster web app on 2026-07-08T17:39:02.992Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -195,12 +195,12 @@ window.CHARGEMASTER_SEED = {
     {"code":"2189","section":"Examinations","service":"Group Cremation >60.1 kg","unit":"per procedure","price":112,"description":"Pathology pricing"},
     {"code":"7788","section":"Other Services","service":"Avian/Reptile Chem 1","unit":"per procedure","price":145,"description":"Central lab pricing"},
     {"code":"7789","section":"Other Services","service":"Avian/Reptile Chem 2","unit":"per procedure","price":170,"description":"Central lab pricing"},
-    {"code":"7790","section":"Other Services","service":"Avian/Reptile Chem 3","unit":"per procedure","price":185,"description":""},
+    {"code":"7790","section":"Other Services","service":"Avian/Reptile Chem 3","unit":"per procedure","price":185,"description":"Central lab pricing"},
     {"code":"7903","section":"Other Services","service":"ICU panel","unit":"per procedure","price":87,"description":"ER pricing"},
     {"code":"7785","section":"Other Services","service":"Primate Chem 2","unit":"per procedure","price":140,"description":"Central lab pricing"},
     {"code":"7798","section":"Other Services","service":"Primate Chem 20","unit":"per procedure","price":195,"description":"Central lab receiving"},
     {"code":"7601","section":"Other Services","service":"Small Animal Chem 1","unit":"per procedure","price":192,"description":"Central lab pricing"},
-    {"code":"7602","section":"Other Services","service":"Small Animal Chem 2","unit":"per procedure","price":222,"description":""},
+    {"code":"7602","section":"Other Services","service":"Small Animal Chem 2","unit":"per procedure","price":222,"description":"Central lab pricing"},
     {"code":"7446","section":"Other Services","service":"Small Animal Chem 2 + Trig","unit":"per procedure","price":230,"description":"Central lab pricing"},
     {"code":"7568","section":"Other Services","service":"Ionized Calcium","unit":"per procedure","price":63,"description":"ER pricing"},
     {"code":"1262","section":"Other Services","service":"Protein Electrophoresis- Albumin Only","unit":"per procedure","price":39,"description":"Central lab pricing"},
