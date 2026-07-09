@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-08T22:03:22.443Z
+// Auto-updated by the chargemaster web app on 2026-07-09T18:57:06.475Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -218,6 +218,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"6618","section":"Other Services","service":"Cone Beam CT recheck","unit":"per procedure","price":324,"description":"DOSS pricing"},
     {"code":"6650","section":"Other Services","service":"Contrast CT","unit":"per procedure","price":1701,"description":"CT pricing"},
     {"code":"1004","section":"Other Services","service":"Contrast CT, recheck (within 6 months)","unit":"per procedure","price":1192,"description":"CT pricing"},
-    {"code":"6738","section":"Other Services","service":"PET CT with contrast","unit":"per procedure","price":1691,"description":"CT pricing"}
+    {"code":"6738","section":"Other Services","service":"PET CT with contrast","unit":"per procedure","price":1691,"description":"CT pricing"},
+    {"code":"8989","section":"Discontinued","service":"Aquatic Animal Field Call (mileage)","unit":"unknown","price":38,"description":"","discontinued":true}
   ]
 };
