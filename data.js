@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-09T19:02:19.684Z
+// Auto-updated by the chargemaster web app on 2026-07-09T22:18:22.283Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -26,7 +26,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"8929","section":"Field Service","service":"MGZ Full day","unit":"per day","price":1477,"description":"Visit longer than 3 hours"},
     {"code":"8930","section":"Field Service","service":"MGZ Half day","unit":"per day","price":810,"description":"Visit shorter than 3 hours"},
     {"code":"8932","section":"Field Service","service":"Field Call Emergency Surcharge","unit":"per appt","price":356,"description":"Can be used for zoo/AHH for nonscheduled ERs"},
-    {"code":"1501","section":"Hospitalizations","service":"Day Case","unit":"per day","price":36,"description":"Use when animal is staying for workup/not staying overnight; should NOT charge incrementally"},
+    {"code":"1501","section":"Hospitalizations","service":"Day Case","unit":"per day","price":36,"description":"Use when animal is staying for workup/not staying overnight; should NOT charge incrementally. Charged regardless if patient went into hospital cage or not."},
     {"code":"9978","section":"Hospitalizations","service":"Aquatic Hosp Level 1","unit":"1-13 days","price":388,"description":"Hospitalization @ CABA"},
     {"code":"9979","section":"Hospitalizations","service":"Aquatic Hosp Level 2","unit":"14-31 days","price":563,"description":"Hospitalization @ CABA"},
     {"code":"1500","section":"Hospitalizations","service":"Bird (small)","unit":"per day","price":77,"description":"Budgies, cockatiels, lovebirds, conures"},
