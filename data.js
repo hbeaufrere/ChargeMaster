@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-09T22:18:22.283Z
+// Auto-updated by the chargemaster web app on 2026-07-16T14:09:45.857Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -11,7 +11,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"1512","section":"Examinations","service":"Emergency Exam","unit":"per appt","price":368,"description":"Walk in or same day scheduled ER"},
     {"code":"1518","section":"Examinations","service":"Wildlife exam","unit":"per appt","price":47,"description":"Charged for wild animals from wildlife rehabs, not resident/ambassador animals/client owned"},
     {"code":"1104","section":"Examinations","service":"Health Certificate","unit":"per appt","price":67,"description":"Charged in addition to exam fee when health certificate is needed"},
-    {"code":"1519","section":"Examinations","service":"Tx only, no visit fee","unit":"per appt","price":0,"description":"Used when animal comes in for diagnostics and/or treatments on a day other than exam (eg when no CT slots available on exam day)"},
+    {"code":"1199","section":"Examinations","service":"Tx only, no visit fee","unit":"per appt","price":0,"description":"Used when animal comes in for diagnostics and/or treatments on a day other than exam (eg when no CT slots available on exam day)"},
     {"code":"8927","section":"Examinations","service":"Tech appt","unit":"per appt","price":42,"description":"Appt completed by technician, not doctor"},
     {"code":"9031","section":"Examinations","service":"Technician time","unit":"per hour","price":93,"description":"Can be used for prolonged recovery or in any other case where a tech is needed for a prolonged time"},
     {"code":"1515","section":"Examinations","service":"Phone Consultation","unit":"per half hr","price":145,"description":"Resident/clinician consults with rdvm, zoo"},
