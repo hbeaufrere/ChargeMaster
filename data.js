@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-17T16:03:33.268Z
+// Auto-updated by the chargemaster web app on 2026-07-17T16:46:36.555Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -226,6 +226,9 @@ window.CHARGEMASTER_SEED = {
     {"code":"9945","section":"Supplies","service":"VSP E-collar SM","unit":"per item","price":59,"description":"As described"},
     {"code":"9947","section":"Supplies","service":"VSP E-collar LG/Macaw","unit":"per item","price":83,"description":"As described"},
     {"code":"9949","section":"Supplies","service":"VSP E-collar 10\" replacement extension","unit":"per item","price":44,"description":"As described"},
-    {"code":"9953","section":"Other Services","service":"Spherical E-collar 0.8\"","unit":"per item","price":10,"description":"As desribed"}
+    {"code":"9953","section":"Other Services","service":"Spherical E-collar 0.8\"","unit":"per item","price":10,"description":"As desribed"},
+    {"code":"9903","section":"Supplies","service":"FESSA 6 mm screw","unit":"per screw","price":8,"description":"As described"},
+    {"code":"9904","section":"Supplies","service":"FESSA 8mm locking screw","unit":"per screw","price":12,"description":"As described"},
+    {"code":"9905","section":"Supplies","service":"FESSA 6mm x 45 mm tube","unit":"per tube","price":141,"description":"As described"}
   ]
 };
