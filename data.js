@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-16T19:39:11.473Z
+// Auto-updated by the chargemaster web app on 2026-07-17T16:03:33.268Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -220,6 +220,12 @@ window.CHARGEMASTER_SEED = {
     {"code":"1004","section":"Other Services","service":"Contrast CT, recheck (within 6 months)","unit":"per procedure","price":1192,"description":"CT pricing"},
     {"code":"6738","section":"Other Services","service":"PET CT with contrast","unit":"per procedure","price":1691,"description":"CT pricing"},
     {"code":"8989","section":"Discontinued","service":"Aquatic Animal Field Call (mileage)","unit":"Unknown","price":38,"description":"","discontinued":true},
-    {"code":"8852","section":"Supplies","service":"Fringe e-collar","unit":"per item","price":133,"description":"Same price for all sizes of fringy collar"}
+    {"code":"8852","section":"Supplies","service":"Fringe e-collar","unit":"per item","price":133,"description":"Same price for all sizes of fringy collar"},
+    {"code":"9943","section":"Supplies","service":"CEAMS crafted E-collar","unit":"per item","price":51,"description":"E-collar made in CEAMS with old xray film, etc."},
+    {"code":"9944","section":"Supplies","service":"VSP E-collar XS","unit":"per item","price":56,"description":"As described"},
+    {"code":"9945","section":"Supplies","service":"VSP E-collar SM","unit":"per item","price":59,"description":"As described"},
+    {"code":"9947","section":"Supplies","service":"VSP E-collar LG/Macaw","unit":"per item","price":83,"description":"As described"},
+    {"code":"9949","section":"Supplies","service":"VSP E-collar 10\" replacement extension","unit":"per item","price":44,"description":"As described"},
+    {"code":"9953","section":"Other Services","service":"Spherical E-collar 0.8\"","unit":"per item","price":10,"description":"As desribed"}
   ]
 };
