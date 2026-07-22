@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-22T18:07:49.291Z
+// Auto-updated by the chargemaster web app on 2026-07-22T18:09:09.980Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -242,6 +242,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"9934","section":"Supplies","service":"Oxbow Critical Care Apple/Banana 141g","unit":"per bag","price":25,"description":"As described"},
     {"code":"9938","section":"Supplies","service":"Oxbow Critical Care Fine Grind 100g","unit":"per bag","price":25,"description":"As described"},
     {"code":"9935","section":"Supplies","service":"Oxbow Critical Care Apple/Banana 454g","unit":"per bag","price":52,"description":"As described"},
-    {"code":"9936","section":"Supplies","service":"Oxbow Carnivore Care 70g","unit":"per bag","price":32,"description":"As described"}
+    {"code":"9936","section":"Supplies","service":"Oxbow Carnivore Care 70g","unit":"per bag","price":32,"description":"As described"},
+    {"code":"9899","section":"Supplies","service":"Oxbow Omnivore Care 70g","unit":"per bag","price":38,"description":"As described"}
   ]
 };
