@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-17T16:46:36.555Z
+// Auto-updated by the chargemaster web app on 2026-07-22T17:51:48.142Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -127,7 +127,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"1520","section":"Procedures","service":"Bandage, small","unit":"per procedure","price":62,"description":"Only a few materials used (ie gauze square and vetwrap, tegaderm), tape splint, small figure 8, etc."},
     {"code":"1533","section":"Procedures","service":"Bandage, medium","unit":"per procedure","price":78,"description":"Moderate amount of materials used (ie limb bandage)"},
     {"code":"1521","section":"Procedures","service":"Bandage, large","unit":"per procedure","price":97,"description":"Cast/splint made, figure 8 for large bird (ie eagle or similar)"},
-    {"code":"1514","section":"Procedures","service":"Blood draw, complex","unit":"per procedure","price":47,"description":"Multiple attempts, more than normal amounts of supplies used"},
+    {"code":"1514","section":"Procedures","service":"Blood draw, complex","unit":"per procedure","price":47,"description":"Multiple attempts, more than normal amounts of supplies used; Collection fee for blood transfusion per quarter hour"},
     {"code":"1284","section":"Procedures","service":"Blood pressure, indirect measurement","unit":"per day","price":77,"description":"Oscillimetric measurements or sphygmomanometer, no limit on times repeated"},
     {"code":"1527","section":"Procedures","service":"Blood transfusion","unit":"per procedure","price":665,"description":"Includes monitoring; does not include donor exam, donor blood collection, cross matching, or supplies"},
     {"code":"1523","section":"Procedures","service":"Catheter Placement, peripheral","unit":"per procedure","price":106,"description":"IV or IO with minimal attempts"},
@@ -226,9 +226,17 @@ window.CHARGEMASTER_SEED = {
     {"code":"9945","section":"Supplies","service":"VSP E-collar SM","unit":"per item","price":59,"description":"As described"},
     {"code":"9947","section":"Supplies","service":"VSP E-collar LG/Macaw","unit":"per item","price":83,"description":"As described"},
     {"code":"9949","section":"Supplies","service":"VSP E-collar 10\" replacement extension","unit":"per item","price":44,"description":"As described"},
-    {"code":"9953","section":"Other Services","service":"Spherical E-collar 0.8\"","unit":"per item","price":10,"description":"As desribed"},
+    {"code":"9953","section":"Supplies","service":"Spherical E-collar 0.8\"","unit":"per item","price":10,"description":"As desribed"},
     {"code":"9903","section":"Supplies","service":"FESSA 6 mm screw","unit":"per screw","price":8,"description":"As described"},
     {"code":"9904","section":"Supplies","service":"FESSA 8mm locking screw","unit":"per screw","price":12,"description":"As described"},
-    {"code":"9905","section":"Supplies","service":"FESSA 6mm x 45 mm tube","unit":"per tube","price":141,"description":"As described"}
+    {"code":"9905","section":"Supplies","service":"FESSA 6mm x 45 mm tube","unit":"per tube","price":141,"description":"As described"},
+    {"code":"9954","section":"Supplies","service":"Spherical E-collar 1\"","unit":"per item","price":11,"description":"As described"},
+    {"code":"9957","section":"Supplies","service":"Saf-T-Shield Small","unit":"per item","price":21,"description":"As described"},
+    {"code":"7003","section":"Other Services","service":"Blood cross-match","unit":"per procedure","price":81,"description":"Central Lab pricing"},
+    {"code":"7015","section":"Other Services","service":"Blood cross-match Emergency surcharge","unit":"per procedure","price":174,"description":"Central lab pricing"},
+    {"code":"7450","section":"Other Services","service":"Urinalysis","unit":"per procedure","price":102,"description":"Central lab pricing"},
+    {"code":"9924","section":"Supplies","service":"Emeraid Carnivore Care 100g","unit":"per bag","price":38,"description":"As described"},
+    {"code":"9926","section":"Supplies","service":"Emeraid Herbivore Care 100g","unit":"per bag","price":38,"description":"As described"},
+    {"code":"9928","section":"Supplies","service":"Emeraid Omnivore Care 100g","unit":"per bag","price":38,"description":"As described"}
   ]
 };
