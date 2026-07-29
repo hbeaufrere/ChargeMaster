@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-22T18:09:09.980Z
+// Auto-updated by the chargemaster web app on 2026-07-29T16:22:10.101Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -192,7 +192,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"1623","section":"Other Services","service":"Group cremation 1-10 kg","unit":"per procedure","price":29,"description":"Pathology pricing"},
     {"code":"1624","section":"Other Services","service":"Group Cremation 10.1-30 kg","unit":"per procedure","price":57,"description":"Pathology pricing"},
     {"code":"1939","section":"Other Services","service":"Group Cremation 30.1-60 kg","unit":"per procedure","price":89,"description":"Pathology pricing"},
-    {"code":"2189","section":"Examinations","service":"Group Cremation >60.1 kg","unit":"per procedure","price":112,"description":"Pathology pricing"},
+    {"code":"2189","section":"Other Services","service":"Group Cremation >60.1 kg","unit":"per procedure","price":112,"description":"Pathology pricing"},
     {"code":"7788","section":"Other Services","service":"Avian/Reptile Chem 1","unit":"per procedure","price":145,"description":"Central lab pricing"},
     {"code":"7789","section":"Other Services","service":"Avian/Reptile Chem 2","unit":"per procedure","price":170,"description":"Central lab pricing"},
     {"code":"7790","section":"Other Services","service":"Avian/Reptile Chem 3","unit":"per procedure","price":185,"description":"Central lab pricing"},
@@ -243,6 +243,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"9938","section":"Supplies","service":"Oxbow Critical Care Fine Grind 100g","unit":"per bag","price":25,"description":"As described"},
     {"code":"9935","section":"Supplies","service":"Oxbow Critical Care Apple/Banana 454g","unit":"per bag","price":52,"description":"As described"},
     {"code":"9936","section":"Supplies","service":"Oxbow Carnivore Care 70g","unit":"per bag","price":32,"description":"As described"},
-    {"code":"9899","section":"Supplies","service":"Oxbow Omnivore Care 70g","unit":"per bag","price":38,"description":"As described"}
+    {"code":"9899","section":"Supplies","service":"Oxbow Omnivore Care 70g","unit":"per bag","price":38,"description":"As described"},
+    {"code":"1236","section":"Examinations","service":"Employee exam","unit":"per procedure","price":81,"description":"For VMTH employees only; students do not apply"}
   ]
 };
