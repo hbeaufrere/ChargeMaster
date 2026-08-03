@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-07-29T16:22:10.101Z
+// Auto-updated by the chargemaster web app on 2026-08-03T19:42:35.755Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -244,6 +244,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"9935","section":"Supplies","service":"Oxbow Critical Care Apple/Banana 454g","unit":"per bag","price":52,"description":"As described"},
     {"code":"9936","section":"Supplies","service":"Oxbow Carnivore Care 70g","unit":"per bag","price":32,"description":"As described"},
     {"code":"9899","section":"Supplies","service":"Oxbow Omnivore Care 70g","unit":"per bag","price":38,"description":"As described"},
-    {"code":"1236","section":"Examinations","service":"Employee exam","unit":"per procedure","price":81,"description":"For VMTH employees only; students do not apply"}
+    {"code":"1236","section":"Examinations","service":"Employee exam","unit":"per procedure","price":81,"description":"For VMTH employees only; students do not apply"},
+    {"code":"8994","section":"Procedures","service":"Aquatic Bath Induction","unit":"per procedure","price":93,"description":"Animal induced (such as fish or amphibian) with MS222.  Induction is included with Aquatic animal exam (8916), so this code is usually used when a fish stays for next day surgery."}
   ]
 };
