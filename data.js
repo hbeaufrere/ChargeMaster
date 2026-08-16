@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-08-03T19:42:35.755Z
+// Auto-updated by the chargemaster web app on 2026-08-16T21:36:44.307Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -134,7 +134,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"9990","section":"Procedures","service":"Catheter Placement, level 2","unit":"per procedure","price":177,"description":"Multiple attempts, more than normal amount of supplies used; central line"},
     {"code":"8951","section":"Procedures","service":"Hair clip","unit":"per procedure","price":57,"description":"Sanitary clip or any other kind of requested grooming that uses scissors/clippers"},
     {"code":"1360","section":"Procedures","service":"Ear cleaning","unit":"per procedure","price":68,"description":"Ear flush with saline and/or cleaning with gauze and CTAs"},
-    {"code":"1564","section":"Procedures","service":"Emergency therapy","unit":"per quarter hour","price":115,"description":"CPR therapy charge; other treatments with existing codes (ie BG or gastric decompression) should be charged in conjunction with this"},
+    {"code":"1564","section":"Procedures","service":"Emergency therapy","unit":"per quarter hour","price":125,"description":"CPR therapy charge; other treatments with existing codes (ie BG or gastric decompression) should be charged in conjunction with this"},
     {"code":"8953","section":"Procedures","service":"Enema administration","unit":"per procedure","price":57,"description":"Includes supplies used"},
     {"code":"1524","section":"Procedures","service":"Euthanasia I","unit":"per procedure","price":125,"description":"Standard euth with 3 or less IVC attempts"},
     {"code":"1516","section":"Procedures","service":"Euthanasia II","unit":"per procedure","price":218,"description":"Lengthy and/or complicated euthanasias involving more than 3 IVC attempts, patient needed to be resedated, etc."},
