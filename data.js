@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-08-16T21:36:44.307Z
+// Auto-updated by the chargemaster web app on 2026-08-17T18:51:27.262Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -245,6 +245,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"9936","section":"Supplies","service":"Oxbow Carnivore Care 70g","unit":"per bag","price":32,"description":"As described"},
     {"code":"9899","section":"Supplies","service":"Oxbow Omnivore Care 70g","unit":"per bag","price":38,"description":"As described"},
     {"code":"1236","section":"Examinations","service":"Employee exam","unit":"per procedure","price":81,"description":"For VMTH employees only; students do not apply"},
-    {"code":"8994","section":"Procedures","service":"Aquatic Bath Induction","unit":"per procedure","price":93,"description":"Animal induced (such as fish or amphibian) with MS222.  Induction is included with Aquatic animal exam (8916), so this code is usually used when a fish stays for next day surgery."}
+    {"code":"8994","section":"Procedures","service":"Aquatic Bath Induction","unit":"per procedure","price":93,"description":"Animal induced (such as fish or amphibian) with MS222.  Induction is included with Aquatic animal exam (8916), so this code is usually used when a fish stays for next day surgery."},
+    {"code":"HC118","section":"Other Services","service":"Home Again Microchip","unit":"per item","price":10.25,"description":"Central services pricing"}
   ]
 };
