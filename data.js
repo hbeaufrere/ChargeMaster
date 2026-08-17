@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-08-17T18:51:27.262Z
+// Auto-updated by the chargemaster web app on 2026-08-17T18:52:30.975Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -149,7 +149,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"1202","section":"Procedures","service":"Nasogastric tube","unit":"per procedure","price":145,"description":"As described, includes supplies"},
     {"code":"1525","section":"Procedures","service":"Esophagostomy/pharyngostomy tube placement","unit":"per procedure","price":300,"description":"Includes cost of procedure and supplies, does not include single view rad charge to confirm placement"},
     {"code":"2372","section":"Procedures","service":"Urinary catheter","unit":"per procedure","price":119,"description":"Includes cost of procedure and supplies"},
-    {"code":"1948","section":"Procedures","service":"Microchip placement","unit":"per procedure","price":58,"description":"Does not include microchip fee"},
+    {"code":"1948","section":"Procedures","service":"Microchip placement","unit":"per procedure","price":58,"description":"Implantation fee.  Does not include microchip fee."},
     {"code":"8949","section":"Procedures","service":"Nail trim","unit":"per procedure","price":33,"description":"Charge for awake nail trims; if using dremel need to charge for bit separately"},
     {"code":"8923","section":"Procedures","service":"Nebulization","unit":"per day","price":115,"description":"15 min TID"},
     {"code":"9097","section":"Procedures","service":"Fluid Therapy, small","unit":"per procedure","price":38,"description":"SQ or IV; 0-30 ml; included in anesthesia"},
