@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-08-17T18:52:30.975Z
+// Auto-updated by the chargemaster web app on 2026-08-31T19:36:23.539Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -222,16 +222,9 @@ window.CHARGEMASTER_SEED = {
     {"code":"8989","section":"Discontinued","service":"Aquatic Animal Field Call (mileage)","unit":"Unknown","price":38,"description":"","discontinued":true},
     {"code":"8852","section":"Supplies","service":"Fringe e-collar","unit":"per item","price":133,"description":"Same price for all sizes of fringy collar"},
     {"code":"9943","section":"Supplies","service":"CEAMS crafted E-collar","unit":"per item","price":51,"description":"E-collar made in CEAMS with old xray film, etc."},
-    {"code":"9944","section":"Supplies","service":"VSP E-collar XS","unit":"per item","price":56,"description":"As described"},
-    {"code":"9945","section":"Supplies","service":"VSP E-collar SM","unit":"per item","price":59,"description":"As described"},
-    {"code":"9947","section":"Supplies","service":"VSP E-collar LG/Macaw","unit":"per item","price":83,"description":"As described"},
-    {"code":"9949","section":"Supplies","service":"VSP E-collar 10\" replacement extension","unit":"per item","price":44,"description":"As described"},
-    {"code":"9953","section":"Supplies","service":"Spherical E-collar 0.8\"","unit":"per item","price":10,"description":"As desribed"},
     {"code":"9903","section":"Supplies","service":"FESSA 6 mm screw","unit":"per screw","price":8,"description":"As described"},
     {"code":"9904","section":"Supplies","service":"FESSA 8mm locking screw","unit":"per screw","price":12,"description":"As described"},
     {"code":"9905","section":"Supplies","service":"FESSA 6mm x 45 mm tube","unit":"per tube","price":141,"description":"As described"},
-    {"code":"9954","section":"Supplies","service":"Spherical E-collar 1\"","unit":"per item","price":11,"description":"As described"},
-    {"code":"9957","section":"Supplies","service":"Saf-T-Shield Small","unit":"per item","price":21,"description":"As described"},
     {"code":"7003","section":"Other Services","service":"Blood cross-match","unit":"per procedure","price":81,"description":"Central Lab pricing"},
     {"code":"7015","section":"Other Services","service":"Blood cross-match Emergency surcharge","unit":"per procedure","price":174,"description":"Central lab pricing"},
     {"code":"7450","section":"Other Services","service":"Urinalysis","unit":"per procedure","price":102,"description":"Central lab pricing"},
@@ -246,6 +239,9 @@ window.CHARGEMASTER_SEED = {
     {"code":"9899","section":"Supplies","service":"Oxbow Omnivore Care 70g","unit":"per bag","price":38,"description":"As described"},
     {"code":"1236","section":"Examinations","service":"Employee exam","unit":"per procedure","price":81,"description":"For VMTH employees only; students do not apply"},
     {"code":"8994","section":"Procedures","service":"Aquatic Bath Induction","unit":"per procedure","price":93,"description":"Animal induced (such as fish or amphibian) with MS222.  Induction is included with Aquatic animal exam (8916), so this code is usually used when a fish stays for next day surgery."},
-    {"code":"HC118","section":"Other Services","service":"Home Again Microchip","unit":"per item","price":10.25,"description":"Central services pricing"}
+    {"code":"HC118","section":"Other Services","service":"Home Again Microchip","unit":"per item","price":10.25,"description":"Central services pricing"},
+    {"code":"1413","section":"Supplies","service":"Spherical E-collar","unit":"per item","price":16,"description":"Same cost for all sizes"},
+    {"code":"1439","section":"Supplies","service":"SAF T shield E collar","unit":"per item","price":24,"description":"Same price for all sizes"},
+    {"code":"1401","section":"Supplies","service":"VSP E collar","unit":"per item","price":40,"description":"Same price for all sizes"}
   ]
 };
