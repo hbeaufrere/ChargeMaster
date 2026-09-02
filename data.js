@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-08-31T19:36:23.539Z
+// Auto-updated by the chargemaster web app on 2026-09-02T19:27:21.230Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -241,7 +241,8 @@ window.CHARGEMASTER_SEED = {
     {"code":"8994","section":"Procedures","service":"Aquatic Bath Induction","unit":"per procedure","price":93,"description":"Animal induced (such as fish or amphibian) with MS222.  Induction is included with Aquatic animal exam (8916), so this code is usually used when a fish stays for next day surgery."},
     {"code":"HC118","section":"Other Services","service":"Home Again Microchip","unit":"per item","price":10.25,"description":"Central services pricing"},
     {"code":"1413","section":"Supplies","service":"Spherical E-collar","unit":"per item","price":16,"description":"Same cost for all sizes"},
-    {"code":"1439","section":"Supplies","service":"SAF T shield E collar","unit":"per item","price":24,"description":"Same price for all sizes"},
-    {"code":"1401","section":"Supplies","service":"VSP E collar","unit":"per item","price":40,"description":"Same price for all sizes"}
+    {"code":"1439","section":"Supplies","service":"SAF T shield E-collar","unit":"per item","price":24,"description":"Same price for all sizes"},
+    {"code":"1401","section":"Supplies","service":"VSP E-collar","unit":"per item","price":40,"description":"Same price for all sizes"},
+    {"code":"1457","section":"Hospitalizations","service":"Aquatic Hospitalization","unit":"per day","price":130,"description":"Cost of hospitalizing one fish per day at CABA.  Refer to Dr. Soto for additional guidelines."}
   ]
 };
