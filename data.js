@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-09-29T15:20:07.404Z
+// Auto-updated by the chargemaster web app on 2026-09-29T15:22:25.524Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -44,7 +44,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"1581","section":"Hospitalizations","service":"CAPE ICU level 1","unit":"per day","price":67,"description":"Does NOT include: hospitalization, oxygen, or upstairs ICU/ICW charge. Includes: BID tx, q1hr observation checks, 1 CRI, transport upstairs for overnight care."},
     {"code":"1582","section":"Hospitalizations","service":"CAPE ICU level 2","unit":"per day","price":142,"description":"Does NOT include: hospitalization, oxygen, or upstairs ICU/ICW charge. Includes: BID tx, q1hr observation checks, 1 CRI, assist feeding, transport upstairs for overnight care."},
     {"code":"1583","section":"Hospitalizations","service":"CAPE ICU level 3","unit":"per day","price":187,"description":"Does NOT include: hospitalization, oxygen, or upstairs ICU/ICW charge. Includes: TID tx, q1hr observation checks, 2 CRI's, transport upstairs for overnight care."},
-    {"code":"1584","section":"Hospitalizations","service":"CAPE ICU level 4","unit":"per day","price":208,"description":"Does NOT include: hospitalization, oxygen, or upstairs ICU/ICW charge. Includes: TID tx, q1hr observation checks, 3 CRI's, transport upstairs for overnight care."},
+    {"code":"1584","section":"Hospitalizations","service":"CAPE ICU level 4","unit":"per day","price":208,"description":"Does NOT include: hospitalization, oxygen, or upstairs ICU/ICW charge. Includes: q4hr tx, q1hr observation checks, 3 CRI's, transport upstairs for overnight care."},
     {"code":"1580","section":"Hospitalizations","service":"Infectious dz control surcharge","unit":"per day","price":113,"description":"Charged in addition to hosp if PPE is needed"},
     {"code":"1561","section":"Hospitalizations","service":"Raptor Hospitalization, small","unit":"per day","price":32,"description":"Kestrel, WESO, BANO, WTKI"},
     {"code":"1563","section":"Hospitalizations","service":"Raptor Hospitalization, medium","unit":"per day","price":37,"description":"RTHA, SWHA, GHOW"},
