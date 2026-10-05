@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-09-29T15:22:25.524Z
+// Auto-updated by the chargemaster web app on 2026-10-05T22:17:02.143Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -33,7 +33,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"1505","section":"Hospitalizations","service":"Bird (medium)","unit":"per day","price":83,"description":"Amazons, African greys"},
     {"code":"1506","section":"Hospitalizations","service":"Bird (large)","unit":"per day","price":100,"description":"Cockatoos, Macaws"},
     {"code":"1502","section":"Hospitalizations","service":"Primate","unit":"per day","price":235,"description":"PPE surcharge built in"},
-    {"code":"1503","section":"Hospitalizations","service":"Reptile (small)","unit":"per day","price":77,"description":"Leopard gecko, crested gecko, frogs"},
+    {"code":"1503","section":"Hospitalizations","service":"Reptile (small)","unit":"per day","price":77,"description":"Leopard gecko, crested gecko, frogs, chameleon"},
     {"code":"1544","section":"Hospitalizations","service":"Reptile (medium)","unit":"per day","price":83,"description":"Beardie, RES, desert tortoise"},
     {"code":"1545","section":"Hospitalizations","service":"Reptile (large)","unit":"per day","price":105,"description":"Iguanas, sulcata tortoises"},
     {"code":"1504","section":"Hospitalizations","service":"Small mammal 1","unit":"per day","price":77,"description":"Rats, mice, hamsters, sugar glider"},
