@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-10-15T22:11:11.923Z
+// Auto-updated by the chargemaster web app on 2026-10-15T22:14:25.593Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -218,7 +218,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"6618","section":"Other Services","service":"Cone Beam CT recheck","unit":"per procedure","price":324,"description":"DOSS pricing"},
     {"code":"6650","section":"Other Services","service":"Contrast CT","unit":"per procedure","price":1701,"description":"CT pricing"},
     {"code":"1004","section":"Other Services","service":"Contrast CT, recheck (within 6 months)","unit":"per procedure","price":1192,"description":"CT pricing"},
-    {"code":"6738","section":"Other Services","service":"PET CT with contrast","unit":"per procedure","price":1691,"description":"CT pricing"},
+    {"code":"6711","section":"Other Services","service":"BioExplorer PET-CT, w/Contrast","unit":"per procedure","price":2064,"description":"CT pricing"},
     {"code":"8989","section":"Discontinued","service":"Aquatic Animal Field Call (mileage)","unit":"Unknown","price":38,"description":"","discontinued":true},
     {"code":"8852","section":"Supplies","service":"Fringe e-collar","unit":"per item","price":133,"description":"Same price for all sizes of fringy collar"},
     {"code":"9943","section":"Supplies","service":"CEAMS crafted E-collar","unit":"per item","price":51,"description":"E-collar made in CEAMS with old xray film, etc."},
@@ -245,6 +245,6 @@ window.CHARGEMASTER_SEED = {
     {"code":"1401","section":"Supplies","service":"VSP E-collar","unit":"per item","price":40,"description":"Same price for all sizes"},
     {"code":"1457","section":"Hospitalizations","service":"Aquatic Hospitalization","unit":"per day","price":130,"description":"Cost of hospitalizing one fish per day at CABA.  Refer to Dr. Soto for additional guidelines."},
     {"code":"8922","section":"Procedures","service":"Nasolacrimal Duct Flush","unit":"per procedure","price":51,"description":"Bilateral"},
-    {"code":"2997","section":"Other Services","service":"OR Usage Fee","unit":"per procedure","price":80,"description":"Charged by SA surgery"}
+    {"code":"2997","section":"Other Services","service":"OR Usage Fee","unit":"per procedure","price":80,"description":"SA surgery pricing"}
   ]
 };
