@@ -1,5 +1,5 @@
 // CEAMS / CAPE Chargemaster
-// Auto-updated by the chargemaster web app on 2026-10-05T22:17:02.143Z
+// Auto-updated by the chargemaster web app on 2026-10-15T22:11:11.923Z
 
 window.CHARGEMASTER_SEED = {
   version: "2026.1",
@@ -244,6 +244,7 @@ window.CHARGEMASTER_SEED = {
     {"code":"1439","section":"Supplies","service":"SAF T shield E-collar","unit":"per item","price":24,"description":"Same price for all sizes"},
     {"code":"1401","section":"Supplies","service":"VSP E-collar","unit":"per item","price":40,"description":"Same price for all sizes"},
     {"code":"1457","section":"Hospitalizations","service":"Aquatic Hospitalization","unit":"per day","price":130,"description":"Cost of hospitalizing one fish per day at CABA.  Refer to Dr. Soto for additional guidelines."},
-    {"code":"8922","section":"Procedures","service":"Nasolacrimal Duct Flush","unit":"per procedure","price":51,"description":"Bilateral"}
+    {"code":"8922","section":"Procedures","service":"Nasolacrimal Duct Flush","unit":"per procedure","price":51,"description":"Bilateral"},
+    {"code":"2997","section":"Other Services","service":"OR Usage Fee","unit":"per procedure","price":80,"description":"Charged by SA surgery"}
   ]
 };
